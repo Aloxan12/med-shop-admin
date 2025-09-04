@@ -20,7 +20,7 @@ const RequireAuth = ({
     routesWithAuth: React.ReactNode;
 }) => {
     const isAuthenticated = false // useAppSelector((state) => state.auth.accessToken);
-    const {rehydrated} = {rehydrated: false}// useAppSelector((state) => state.system);
+    const {rehydrated} = {rehydrated: true}// useAppSelector((state) => state.system);
     const isSameUrl = !!useMatch('login');
     if (!rehydrated) {
         return null;
@@ -34,8 +34,8 @@ const RequireAuth = ({
 
 export const AppRouter = () => {
     return (
-        <RequireAuth routesWithAuth={<MainLayoutRoutes/>}>
-            <NotAuthRoutes/>
-        </RequireAuth>
+                <RequireAuth routesWithAuth={<MainLayoutRoutes/>}>
+                    <NotAuthRoutes/>
+                </RequireAuth>
     );
 }
