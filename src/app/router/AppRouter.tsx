@@ -34,8 +34,8 @@ const RequireAuth = ({
 
 export const AppRouter = () => {
     return (
-                <RequireAuth routesWithAuth={<MainLayoutRoutes/>}>
-                    <NotAuthRoutes/>
-                </RequireAuth>
+        <RequireAuth routesWithAuth={<MainLayoutRoutes/>}>
+            <NotAuthRoutes/>
+        </RequireAuth>
     );
 }

@@ -1,7 +1,9 @@
+import {LoginForm} from "@/entities/Login";
+
 const Login = () => {
     return (
         <div>
-            Login
+            <LoginForm/>
         </div>
     );
 };
