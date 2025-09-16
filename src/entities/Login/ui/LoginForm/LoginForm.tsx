@@ -1,6 +1,8 @@
+import cls from './LoginForm.module.scss'
+
 export const LoginForm = () => {
     return (
-        <div>
+        <div className={cls.formWrap}>
             LoginForm
         </div>
     );
