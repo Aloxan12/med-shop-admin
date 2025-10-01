@@ -4,14 +4,13 @@ import {AppButton} from "@/shared/ui/AppButton";
 
 export const LoginForm = () => {
     return (
-        <div className={cls.formWrap}>
-            LoginForm
-            <AppFlex direction='column' gap='20'>
-                <AppFlex gap='20'>
-                    <AppButton text='Зарегистрироваться' variant="secondary"/>
-                    <AppButton text='Войти'/>
+        <AppFlex fullWidth fullHeight align='center' justify='center' className='page'>
+            <AppFlex fullWidth direction='column' gap='20' className={cls.fromWrap}>
+                <AppFlex gap='20' fullWidth>
+                    <AppButton text='Зарегистрироваться' variant="secondary" fullWidth/>
+                    <AppButton text='Войти' fullWidth/>
                 </AppFlex>
             </AppFlex>
-        </div>
+        </AppFlex>
     );
 }

@@ -14,3 +14,15 @@ body {
   color: var(--text-primary, #111);
   background-color: var(--color-main-bg);
 }
+
+.page {
+  min-height: 100vh;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}

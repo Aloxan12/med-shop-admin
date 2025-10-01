@@ -11,6 +11,7 @@ interface AppButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     icoLeft?: LucideIcon
     icoRight?: LucideIcon
     variant?: ButtonVariantType
+    fullWidth?: boolean
 }
 
 export const AppButton = ({
@@ -20,6 +21,7 @@ export const AppButton = ({
                               icoLeft: IcoLeft,
                               icoRight: IcoRight,
                               variant = 'primary',
+                              fullWidth,
                               ...otherProps
                           }: AppButtonProps) => {
 
@@ -30,6 +32,7 @@ export const AppButton = ({
     }
 
     const mods: Mods = {
+        'full-width': fullWidth,
         [cls.disabled]: disabled
     }
 
