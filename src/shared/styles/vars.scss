@@ -1,0 +1,78 @@
+:root {
+
+
+  --font-sans: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+
+  --border-radius: 4px;
+
+  /* base background */
+  --color-main-bg: #f4f5fc;
+
+  /* main colors */
+  --primary: #1154ea;
+
+  /* text */
+  --text-primary: #1e1e1e;
+  --text-secondary: #5c5c5c;
+  --text-muted: #8c8c8c;
+  --text-inverted: #ffffff;
+
+  /* background */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f8fa;
+  --bg-accent: #eaf2ff;
+  --bg-muted: #f2f2f2;
+
+  /* border */
+  --border-primary: #e0e0e0;
+  --border-secondary: #cfcfcf;
+  --border-focus: #4a90e2;
+  --border-danger: #e57373;
+
+  /* accent / states */
+  --accent-primary: #4a90e2;
+  --accent-secondary: #50c878;
+  --accent-warning: #f5a623;
+  --accent-danger: #d0021b;
+
+
+  /* button - primary */
+  --btn-primary-bg: var(--primary);
+  --btn-primary-text: var(--text-inverted);
+  --btn-primary-border: var(--primary);
+  --btn-primary-hover-bg: #0d47d4; /* чуть темнее */
+  --btn-primary-active-bg: #0b3bb5; /* ещё темнее */
+  --btn-primary-disabled-bg: #a3c1f5;
+  --btn-primary-disabled-text: var(--text-inverted);
+
+  /* button - secondary */
+  --btn-secondary-bg: var(--bg-secondary);
+  --btn-secondary-text: var(--text-primary);
+  --btn-secondary-border: var(--border-secondary);
+  --btn-secondary-hover-bg: #ebedf2;
+  --btn-secondary-active-bg: #dfe2e9;
+  --btn-secondary-disabled-bg: var(--bg-muted);
+  --btn-secondary-disabled-text: var(--text-muted);
+
+  /* button - danger */
+  --btn-danger-bg: var(--accent-danger);
+  --btn-danger-text: var(--text-inverted);
+  --btn-danger-border: var(--accent-danger);
+  --btn-danger-hover-bg: #b00117;
+  --btn-danger-active-bg: #950012;
+  --btn-danger-disabled-bg: #f5a3a3;
+  --btn-danger-disabled-text: var(--text-inverted);
+
+  /* button - ghost (прозрачная) */
+  --btn-ghost-bg: transparent;
+  --btn-ghost-text: var(--text-primary);
+  --btn-ghost-border: transparent;
+  --btn-ghost-hover-bg: var(--bg-muted);
+  --btn-ghost-active-bg: #e0e0e0;
+  --btn-ghost-disabled-text: var(--text-muted);
+}
