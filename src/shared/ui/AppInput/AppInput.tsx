@@ -12,11 +12,22 @@ type HTMLInputProps = Omit<
 
 interface AppInputProps extends HTMLInputProps {
     value?: string;
+    label?: string;
     onChange?: (value: string) => void;
     mask?: InputMaskType;
+    fullWidth?: boolean
 }
 
-export const AppInput = ({value, onChange, type, mask, ...otherProps}: AppInputProps) => {
+export const AppInput = ({
+                             value,
+                             placeholder,
+                             label,
+                             fullWidth,
+                             onChange,
+                             type,
+                             mask,
+                             ...otherProps
+                         }: AppInputProps) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (type === "date") {
@@ -32,11 +43,15 @@ export const AppInput = ({value, onChange, type, mask, ...otherProps}: AppInputP
         }
         onChange?.(e.currentTarget.value);
     }
-
+    const mods = {
+        'full-width': !!fullWidth
+    }
     return (
-        <div className={classNames(cls.inputWrap)}>
+        <div className={classNames(cls.inputWrap, mods)}>
+            {!!label && <label>{label}</label>}
             <div className={cls.inputBlock}>
-                <input value={value || ''} type={type} onChange={onChangeHandler} {...otherProps} />
+                <input value={value || ''} type={type} placeholder={placeholder}
+                       onChange={onChangeHandler} {...otherProps} className={cls.inputBase}/>
             </div>
         </div>
     );

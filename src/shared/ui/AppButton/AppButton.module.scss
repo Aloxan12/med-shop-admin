@@ -3,6 +3,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 
   font-family: var(--font-sans), sans-serif;
   font-size: var(--font-size-md);
@@ -15,6 +16,7 @@
   background-color: transparent;
 
   padding: 4px 8px;
+  height: 30px;
 
 
   &.primary {

@@ -1,5 +1,5 @@
 import React from "react";
-import {Navigate, useLocation, useMatch} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
 import {NotAuthRoutes} from "./NotAuthRoutes.tsx";
 import {MainLayoutRoutes} from "./MainLayoutRoutes.tsx";
 
@@ -19,15 +19,16 @@ const RequireAuth = ({
     children: React.ReactNode;
     routesWithAuth: React.ReactNode;
 }) => {
-    const isAuthenticated = false // useAppSelector((state) => state.auth.accessToken);
+    const isAuthenticated = localStorage.getItem("user"); // useAppSelector((state) => state.auth.accessToken);
     const {rehydrated} = {rehydrated: true}// useAppSelector((state) => state.system);
-    const isSameUrl = !!useMatch('login');
+    // const isSameUrl = !!useMatch('login');
+    console.log('isAuthenticated', isAuthenticated)
     if (!rehydrated) {
         return null;
     }
 
     if (!isAuthenticated) {
-        return isSameUrl ? children : <AppRedirect path="/login"/>;
+        return children // : <AppRedirect path="/login"/>;
     }
     return routesWithAuth;
 };

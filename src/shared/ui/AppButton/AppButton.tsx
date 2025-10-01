@@ -40,7 +40,7 @@ export const AppButton = ({
         <button disabled={disabled} onClick={onClickHandler}
                 className={classNames(cls.button, mods, [cls[variant]])} {...otherProps}>
             {IcoLeft && <IcoLeft size={16}/>}
-            <span>{text}</span>
+            {text && <span>{text}</span>}
             {IcoRight && <IcoRight size={16}/>}
         </button>
     );
