@@ -5,6 +5,8 @@ import { Chromium } from "lucide-react";
 import { useLogin } from "../../api/useLogin.ts";
 import { ControlledAppInput } from "@/shared/ui/AppControlledInput";
 import { useForm } from "react-hook-form";
+import { emailRule, passwordRule } from "../../model/validate.ts";
+import { defaultLoginData } from "../../model/const.ts";
 
 interface FormValues {
   email: string;
@@ -13,14 +15,12 @@ interface FormValues {
 
 export const LoginForm = () => {
   const { handleSubmit, control } = useForm<FormValues>({
-    defaultValues: { email: "", password: "" },
+    defaultValues: defaultLoginData,
   });
 
   const { mutate: login } = useLogin();
 
-  const onLoginHandler = handleSubmit((data) => {
-    login({ email: data.email, password: data.password });
-  });
+  const onLoginHandler = handleSubmit((data) => login(data));
 
   const handleGoogleLogin = () => {
     window.location.href = import.meta.env.VITE_API_URL + "/auth/google";
@@ -41,20 +41,11 @@ export const LoginForm = () => {
             name="email"
             label="Email"
             placeholder="Введите E-mail"
-            rules={{
-              required: "Email обязателен",
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Неверный формат",
-              },
-            }}
+            rules={emailRule}
             fullWidth
           />
           <ControlledAppInput
-            rules={{
-              required: "Пароль обязателен",
-              minLength: { value: 5, message: "Минимум 5 символов" },
-            }}
+            rules={passwordRule}
             control={control}
             name="password"
             label="Пароль"
