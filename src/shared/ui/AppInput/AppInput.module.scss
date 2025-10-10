@@ -1,12 +1,15 @@
 .inputWrap {
   display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
   min-width: 200px;
-  border: 1px solid var(--border-primary);
-  border-radius: var(--border-radius);
-  padding: 4px 8px;
+  position: relative;
 
   .inputBlock {
     width: 100%;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--border-radius);
+    padding: 4px 8px;
 
     .inputBase {
       width: 100%;
@@ -23,4 +26,23 @@
   &:hover {
     border-color: var(--border-secondary);
   }
+
+  &.error {
+    .inputBlock {
+      border-color: var(--border-danger);
+    }
+
+    .label {
+      color: var(--accent-danger);
+    }
+  }
+}
+
+.errorBlock {
+  font-size: var(--font-size-small);
+  position: absolute;
+  bottom: -4px;
+  transform: translateY(100%);
+  left: 0;
+  color: var(--accent-danger);
 }

@@ -1,20 +1,25 @@
-import type { IRouteObjectExtended, IRoutesByRole } from './types';
-// import { NotFoundPage } from '@/pages/NotFoundPage';
-import { LogoutPage } from '../../pages/Logout';
-import { MainLayout } from '@/widgets/MainLayout';
-import { routeConfig } from './routeConfig';
-import { Suspense } from 'react';
-import { AppLoader } from '@/shared/ui/AppLoader/AppLoader';
+import type { IRouteObjectExtended, IRoutesByRole } from "./types";
+import { LogoutPage } from "../../pages/Logout";
+import { MainLayout } from "@/widgets/MainLayout";
+import { routeConfig } from "./routeConfig";
+import { Suspense } from "react";
+import { AppLoader } from "@/shared/ui/AppLoader/AppLoader";
+import { Navigate } from "react-router-dom";
 
 const routeConfigFn = (roles: string) =>
   routeConfig
-    .filter((routeItem) => !routeItem.roles || routeItem.roles.some((role) => roles === role))
+    .filter(
+      (routeItem) =>
+        !routeItem.roles || routeItem.roles.some((role) => roles === role),
+    )
     .map(
       (routeItem) =>
         ({
           ...routeItem,
           element: routeItem.element ? (
-            <Suspense fallback={<AppLoader loaderType="main" />}>{routeItem.element}</Suspense>
+            <Suspense fallback={<AppLoader loaderType="main" />}>
+              {routeItem.element}
+            </Suspense>
           ) : null,
           children: routeItem.children?.map((childrenRouteItem) =>
             childrenRouteItem.element
@@ -38,17 +43,17 @@ export const RoutesByRole = ({ roles }: IRoutesByRole) => {
   const resultRole: IRouteObjectExtended[] = [
     {
       element: <MainLayout />,
-      path: '/',
+      path: "/",
       children: roleRoutes,
     },
     {
-      path: '/logout',
+      path: "/logout",
       element: <LogoutPage />,
     },
-    // {
-    //   path: '*',
-    //   element: <NotFoundPage />,
-    // },
+    {
+      path: "*",
+      element: <Navigate to="/" replace />,
+    },
   ];
   return resultRole;
 };

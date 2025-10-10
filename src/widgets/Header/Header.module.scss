@@ -1,0 +1,20 @@
+.headerWrap {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--bg-secondary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--border-primary);
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.menu {
+  cursor: pointer;
+  color: var(--text-secondary);
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
