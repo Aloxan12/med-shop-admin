@@ -6,9 +6,10 @@ import { classNames } from "@/shared/lib/classNames";
 
 interface SidebarItemProps {
   item: SidebarItemType;
+  onClose?: () => void;
 }
 
-export const SidebarItem = ({ item }: SidebarItemProps) => {
+export const SidebarItem = ({ item, onClose }: SidebarItemProps) => {
   const { ico: Ico, path, name } = item;
   return (
     <NavLink
@@ -16,6 +17,7 @@ export const SidebarItem = ({ item }: SidebarItemProps) => {
       className={({ isActive }) =>
         classNames(cls.itemWrap, { [cls.active]: isActive })
       }
+      onClick={onClose}
     >
       <AppFlex gap="8">
         <Ico />

@@ -1,3 +1,4 @@
+import cls from "./MainLayout.module.scss";
 import { Header } from "@/widgets/Header/Header.tsx";
 import { Sidebar } from "@/widgets/Sidebar";
 import { Outlet } from "react-router-dom";
@@ -14,8 +15,10 @@ export const MainLayout = () => {
   return (
     <main>
       <Header onOpenMenu={onSidebarToggle} />
-      <Sidebar isOpen={isOpenSidebar} />
-      <Outlet />
+      <Sidebar isOpen={isOpenSidebar} onClose={onSidebarToggle} />
+      <div className={cls.pageWrap}>
+        <Outlet />
+      </div>
     </main>
   );
 };

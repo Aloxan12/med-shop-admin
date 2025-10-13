@@ -7,9 +7,10 @@ import { SidebarItem } from "@/widgets/Sidebar/ui/SidebarItem.tsx";
 
 interface SidebarProps {
   isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export const Sidebar = ({ isOpen }: SidebarProps) => {
+export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const items = useSidebarItems();
 
   const mods: Mods = {
@@ -17,8 +18,11 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
   };
 
   const itemsRender = useMemo(
-    () => items.map((item) => <SidebarItem key={item.name} item={item} />),
-    [items],
+    () =>
+      items.map((item) => (
+        <SidebarItem key={item.name} onClose={onClose} item={item} />
+      )),
+    [items, onClose],
   );
 
   return (
