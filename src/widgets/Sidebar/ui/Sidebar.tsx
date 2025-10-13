@@ -3,6 +3,7 @@ import { useSidebarItems } from "../model/hooks/useSidebarItems.ts";
 import { classNames, type Mods } from "@/shared/lib/classNames";
 import { AppFlex } from "@/shared/ui/AppFlex";
 import { useMemo } from "react";
+import { SidebarItem } from "@/widgets/Sidebar/ui/SidebarItem.tsx";
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -16,13 +17,13 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
   };
 
   const itemsRender = useMemo(
-    () => items.map((item) => <div key={item.name}>{item.name}</div>),
+    () => items.map((item) => <SidebarItem key={item.name} item={item} />),
     [items],
   );
 
   return (
     <div className={classNames(cls.sidebarWrap, mods)}>
-      <AppFlex direction="column" gap="20">
+      <AppFlex direction="column" align="start" gap="20">
         {itemsRender}
       </AppFlex>
     </div>
