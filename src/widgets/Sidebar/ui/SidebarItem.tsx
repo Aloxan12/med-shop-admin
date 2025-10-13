@@ -3,6 +3,7 @@ import type { SidebarItemType } from "../model/types/sidebarType.ts";
 import { AppFlex } from "@/shared/ui/AppFlex";
 import { NavLink } from "react-router-dom";
 import { classNames } from "@/shared/lib/classNames";
+import { AppText } from "@/shared/ui/AppText";
 
 interface SidebarItemProps {
   item: SidebarItemType;
@@ -21,7 +22,9 @@ export const SidebarItem = ({ item, onClose }: SidebarItemProps) => {
     >
       <AppFlex gap="8">
         <Ico />
-        <span>{name}</span>
+        <AppText className={cls.text} weight="medium" color="muted">
+          {name}
+        </AppText>
       </AppFlex>
     </NavLink>
   );
