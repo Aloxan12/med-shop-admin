@@ -1,1 +1,1 @@
-export {AppInput} from './AppInput.tsx'
+export { AppInput } from "./AppInput.tsx";

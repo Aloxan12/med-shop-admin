@@ -23,6 +23,7 @@ export default tseslint.config([
         },
         rules: {
             'prettier/prettier': 'error', // включаем автоформатирование через Prettier
+            "@typescript-eslint/no-explicit-any": "off",
         },
         languageOptions: {
             ecmaVersion: 2020,

@@ -1,1 +1,1 @@
-export { LoginPageAsync as LoginPage } from './ui/Login.async.tsx'
+export { LoginPageAsync as LoginPage } from "./ui/Login.async.tsx";

@@ -1,1 +1,1 @@
-export { AppLoader } from './AppLoader.tsx'
+export { AppLoader } from "./AppLoader.tsx";

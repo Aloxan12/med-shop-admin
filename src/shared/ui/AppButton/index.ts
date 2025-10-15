@@ -1,1 +1,1 @@
-export {AppButton} from './AppButton.tsx'
+export { AppButton } from "./AppButton.tsx";

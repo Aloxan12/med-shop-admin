@@ -1,7 +1,7 @@
-import { useRoutes } from 'react-router-dom';
-import React, { useMemo } from 'react';
-import type { IRouteObjectExtended } from './types';
-import { RoutesByRole } from './Roles';
+import { useRoutes } from "react-router-dom";
+import React, { useMemo } from "react";
+import type { IRouteObjectExtended } from "./types";
+import { RoutesByRole } from "./Roles";
 
 interface IUserRoutes {
   routesByUserRole: IRouteObjectExtended[];
@@ -13,7 +13,7 @@ const UserRoutes = ({ routesByUserRole }: IUserRoutes) => {
 };
 
 export const MainLayoutRoutes = () => {
-  const currentRole = '' // useAppSelector(getUserRole);
+  const currentRole = ""; // useAppSelector(getUserRole);
 
   const routesByUserRole = useMemo(() => {
     return RoutesByRole({ roles: currentRole as string });

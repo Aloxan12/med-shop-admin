@@ -1,1 +1,1 @@
-export {GoogleCallbackPageAsync as GoogleCallbackPage} from './ui/GoogleCallbackPage.async.tsx'
+export { GoogleCallbackPageAsync as GoogleCallbackPage } from "./ui/GoogleCallbackPage.async.tsx";

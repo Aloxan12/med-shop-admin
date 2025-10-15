@@ -1,3 +1,5 @@
-import {lazy} from 'react'
+import { lazy } from "react";
 
-export const GoogleCallbackPageAsync = lazy(() => import('./GoogleCallbackPage'))
+export const GoogleCallbackPageAsync = lazy(
+  () => import("./GoogleCallbackPage"),
+);
