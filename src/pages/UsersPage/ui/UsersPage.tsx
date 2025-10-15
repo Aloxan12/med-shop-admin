@@ -1,5 +1,11 @@
+import { UsersHeader } from "@/entities/Users";
+
 const UsersPage = () => {
-  return <div>UsersPage</div>;
+  return (
+    <div>
+      <UsersHeader />
+    </div>
+  );
 };
 
 export default UsersPage;
