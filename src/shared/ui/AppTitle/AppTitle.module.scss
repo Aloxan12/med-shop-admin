@@ -1,0 +1,12 @@
+.titleWrap {
+  font-weight: bold;
+  color: var(--text-primary);
+
+  &.h1 {
+    font-size: var(--font-size-h1);
+  }
+
+  &.h2 {
+    font-size: var(--font-size-h2);
+  }
+}
