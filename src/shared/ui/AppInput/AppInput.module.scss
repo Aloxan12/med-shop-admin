@@ -10,6 +10,7 @@
     border: 1px solid var(--border-primary);
     border-radius: var(--border-radius);
     padding: 4px 8px;
+    display: flex;
 
     .inputBase {
       width: 100%;
@@ -20,6 +21,11 @@
       &::placeholder {
         color: var(--text-muted);
       }
+    }
+
+    .iconButton {
+      cursor: pointer;
+
     }
   }
 

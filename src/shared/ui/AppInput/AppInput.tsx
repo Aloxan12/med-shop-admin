@@ -1,7 +1,8 @@
-import React, { type ChangeEvent } from "react";
+import React, { type ChangeEvent, useState } from "react";
 import cls from "./AppInput.module.scss";
 import { classNames } from "@/shared/lib/classNames";
 import { inputMaskFn } from "./helpers/inputMaskFn.ts";
+import { Eye, EyeOff } from "lucide-react";
 
 export type InputMaskType = "float" | "integer" | "negativeInteger";
 
@@ -30,6 +31,8 @@ export const AppInput = ({
   error,
   ...otherProps
 }: AppInputProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShow = () => setShowPassword((prev) => !prev);
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (type === "date") {
       if (e.target.value.length > 10) {
@@ -48,18 +51,24 @@ export const AppInput = ({
     "full-width": !!fullWidth,
     [cls.error]: !!error,
   };
+  const actualType = type === "password" && showPassword ? "text" : type;
   return (
     <div className={classNames(cls.inputWrap, mods)}>
       {!!label && <label className={cls.label}>{label}</label>}
       <div className={cls.inputBlock}>
         <input
           value={value || ""}
-          type={type}
+          type={actualType}
           placeholder={placeholder}
           onChange={onChangeHandler}
           {...otherProps}
           className={cls.inputBase}
         />
+        {type === "password" && (
+          <div className={cls.iconButton} onClick={toggleShow}>
+            {showPassword ? <EyeOff /> : <Eye />}
+          </div>
+        )}
       </div>
       {error && <div className={cls.errorBlock}>{error}</div>}
     </div>

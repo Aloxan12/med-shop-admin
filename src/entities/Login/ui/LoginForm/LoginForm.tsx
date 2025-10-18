@@ -25,7 +25,6 @@ export const LoginForm = () => {
   const handleGoogleLogin = () => {
     window.location.href = import.meta.env.VITE_API_URL + "/auth/google";
   };
-
   return (
     <AppFlex
       fullWidth
@@ -51,6 +50,7 @@ export const LoginForm = () => {
             label="Пароль"
             placeholder="Введите пароль"
             fullWidth
+            type={"password"}
           />
         </AppFlex>
         <AppFlex gap="20" fullWidth className={cls.actions}>
