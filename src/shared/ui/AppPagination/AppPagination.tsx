@@ -43,7 +43,7 @@ interface IAppPagination {
 }
 
 export const AppPagination = ({
-  setLimit,
+  // setLimit,
   limit,
   totalCount = 0,
 }: IAppPagination) => {
