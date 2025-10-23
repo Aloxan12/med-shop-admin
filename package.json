@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
     "lint:fix": "eslint \"src/**/*.{ts,tsx,js,jsx}\" --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.86.0",
