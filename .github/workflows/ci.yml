@@ -38,4 +38,6 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"  
 
       - name: Deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn run deploy
