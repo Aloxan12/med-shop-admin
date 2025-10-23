@@ -32,5 +32,10 @@ jobs:
       - name: Build
         run: yarn run build
 
+      - name: Setup Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"  
+
       - name: Deploy
         run: yarn run deploy
