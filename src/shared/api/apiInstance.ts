@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useAuthStore } from "@/entities/Login";
+import { useAuthStore } from "@/entities/Login/model/authStore.ts";
 
-export const api = axios.create({
+export const apiInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "",
   // withCredentials: true,
   headers: {
@@ -9,7 +9,7 @@ export const api = axios.create({
   },
 });
 
-api.interceptors.request.use((config) => {
+apiInstance.interceptors.request.use((config) => {
   const { token } = useAuthStore.getState();
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -17,7 +17,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use(
+apiInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -33,7 +33,7 @@ api.interceptors.response.use(
         );
         setToken(data.accessToken, data.refreshToken);
         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-        return api(originalRequest);
+        return apiInstance(originalRequest);
       } catch (refreshError) {
         logout();
         return Promise.reject(refreshError);
