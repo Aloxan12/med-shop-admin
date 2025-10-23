@@ -11,7 +11,7 @@
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\" --fix",
     "typecheck": "tsc --noEmit",
     "ci": "yarn install --frozen-lockfile",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist -r https://x-access-token:${GITHUB_TOKEN}@github.com/aloxan12/med-shop-admin.git"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.86.0",
