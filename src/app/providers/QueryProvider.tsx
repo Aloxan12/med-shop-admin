@@ -1,5 +1,11 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import React from "react";
+import { handleError } from "./handleError.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -9,6 +15,12 @@ const queryClient = new QueryClient({
       staleTime: 1000 * 60,
     },
   },
+  queryCache: new QueryCache({
+    onError: handleError,
+  }),
+  mutationCache: new MutationCache({
+    onError: handleError,
+  }),
 });
 
 export const QueryProvider = ({ children }: { children: React.ReactNode }) => (
