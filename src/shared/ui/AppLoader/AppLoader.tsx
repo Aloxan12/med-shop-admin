@@ -1,7 +1,7 @@
 interface AppLoaderProps {
-  loaderType: "main" | "block";
+  loaderType?: "main" | "block";
 }
 
-export const AppLoader = ({ loaderType }: AppLoaderProps) => {
+export const AppLoader = ({ loaderType = "main" }: AppLoaderProps) => {
   return <div>AppLoader... {loaderType}</div>;
 };

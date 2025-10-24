@@ -1,20 +1,18 @@
 import { AppTable } from "@/shared/ui/AppTable";
 import { userHeaderData } from "@/entities/Users/model/data.ts";
-import { dataTable } from "@/shared/ui/AppTable/moc/table.ts";
+import { useUserList } from "@/entities/Users/api/useUser.ts";
+import { AppLoader } from "@/shared/ui/AppLoader";
 
 export const UsersTable = () => {
+  const { data, isLoading } = useUserList({ page: 1, limit: 10 });
+  console.log("data", data);
+  if (!data && isLoading) return <AppLoader />;
+  if (!data) return null;
   return (
     <AppTable
       headerData={userHeaderData}
-      data={dataTable}
-      tableDataSelectors={[
-        { name: "name" },
-        { name: "age" },
-        { name: "surname" },
-        {
-          renderItem: (item) => <input type="checkbox" checked={item.isDone} />,
-        },
-      ]}
+      data={data}
+      tableDataSelectors={[{ name: "id" }, { name: "email" }, { name: "role" }]}
     />
   );
 };

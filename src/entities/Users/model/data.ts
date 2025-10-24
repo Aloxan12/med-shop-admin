@@ -1,6 +1,5 @@
 export const userHeaderData = [
-  { title: "Name", colWidth: "50%" },
-  { title: "age" },
-  { title: "surname", colWidth: "50%" },
-  { title: "isDone" },
+  { title: "Id", colWidth: "50%" },
+  { title: "Email" },
+  { title: "Role", colWidth: "50%" },
 ];

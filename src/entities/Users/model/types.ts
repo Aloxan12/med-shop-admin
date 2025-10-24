@@ -20,9 +20,9 @@ export interface GetUserListRequest {
 }
 
 export interface GetUserListResponse {
-  total: number;
+  count: number;
   pages: number;
   page: number;
   limit: number;
-  data: UserListDto[];
+  results: UserListDto[];
 }
