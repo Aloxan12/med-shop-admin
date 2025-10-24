@@ -7,7 +7,7 @@ import "./shared/styles/global.scss";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/med-shop-admin">
       <QueryProvider>
         <AppRouter />
       </QueryProvider>
