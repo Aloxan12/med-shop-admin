@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss"
+  ],
+  "rules": {
+    "scss/declaration-property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": [
+          "aspect-ratio",
+          "mask-composite",
+          "-webkit-mask-composite"
+        ]
+      }
+    ]
+  }
+}
