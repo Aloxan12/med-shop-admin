@@ -10,6 +10,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  base: "med-shop-admin",
   server: {
     port: 3008,
   },
