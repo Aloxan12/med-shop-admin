@@ -2,10 +2,21 @@ import { AppTable } from "@/shared/ui/AppTable";
 import { userHeaderData } from "@/entities/Users/model/data.ts";
 import { useUserList } from "@/entities/Users/api/useUser.ts";
 import { AppLoader } from "@/shared/ui/AppLoader";
+import { useParamsControl } from "@/shared/lib/hooks/useParamsControl.ts";
 
 export const UsersTable = () => {
-  const { data, isLoading } = useUserList({ page: 1, limit: 10 });
-  console.log("data", data);
+  const params = useParamsControl<
+    { page?: string; limit?: string },
+    "page" | "limit"
+  >({
+    paramsList: [],
+    withPagination: true,
+    resetPagination: false,
+  });
+  const { page, limit } = params || {};
+  const pageNum = Number(page) || 1;
+  const limitNum = Number(limit) || 1;
+  const { data, isLoading } = useUserList({ page: pageNum, limit: limitNum });
   if (!data && isLoading) return <AppLoader />;
   if (!data) return null;
   return (

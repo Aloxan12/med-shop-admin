@@ -41,6 +41,8 @@ type IAppTable<T, TKey> = {
   tableDataSelectors: TSelector<T, TKey>[];
 };
 
+const LIMIT_PAGE = 1;
+
 export const AppTable = <T, TKey extends keyof T>({
   headerData,
   data,
@@ -112,7 +114,7 @@ export const AppTable = <T, TKey extends keyof T>({
         </tbody>
       </table>
       {data && !!data.count && (
-        <AppPagination totalCount={data.count} limit={5} />
+        <AppPagination totalCount={data.count} limit={LIMIT_PAGE} />
       )}
     </div>
   );

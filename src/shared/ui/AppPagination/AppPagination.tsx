@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import cls from "./AppPagination.module.css";
-import { isPaginationResetReg } from "@/shared/lib/hooks/useParamsControl.ts";
 
 function createPages(
   pages: (number | string)[],
@@ -53,13 +52,14 @@ export const AppPagination = ({
     page ? Number(page) : 1,
   );
 
-  const searchParamsWithoutPagination = searchParams
-    .toString()
-    .replace(isPaginationResetReg, "");
+  // const searchParamsWithoutPagination = searchParams
+  //   .toString()
+  //   .replace(isPaginationResetReg, "");
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [limit, searchParamsWithoutPagination]);
+  // useEffect(() => {
+  //   console.log(123);
+  //   setCurrentPage(1);
+  // }, [limit, searchParamsWithoutPagination]);
 
   const pageCount = Math.ceil(totalCount / limit);
   const pages: (number | string)[] = [];
