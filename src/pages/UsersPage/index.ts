@@ -1,1 +1,1 @@
-export { UsersPageAsync as UsersPage } from "./ui/UsersPage.async.tsx";
+export { UsersPageAsync as UsersPage } from "@/pages/UsersPage/ui/UsersPage.async.tsx";

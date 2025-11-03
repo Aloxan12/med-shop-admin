@@ -1,19 +1,21 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import style from "./style.module.scss";
+import style from "@/shared/ui/AppTableSkeleton/style.module.scss";
+import type { tableColumnsNamesType } from "@/entities/Users/ui/UsersTable/UsersTable.tsx";
 
-const columns = [
-  { name: "Id", width: "40%" },
-  { name: "Email", width: "20%" },
-  { name: "Role", width: "40%" },
-];
-const rowCount = 1;
+interface AppTableSkeletonProps {
+  rowCount: number;
+  tableColumnsNames: tableColumnsNamesType[];
+}
 
-export const UsersSkeletonTable = () => (
+export const AppTableSkeleton = ({
+  rowCount,
+  tableColumnsNames,
+}: AppTableSkeletonProps) => (
   <table className={style.myTable}>
     <thead>
       <tr className={style.head}>
-        {columns.map((col) => (
+        {tableColumnsNames.map((col) => (
           <th style={{ width: col.width }} key={col.name}>
             {col.name}
           </th>
@@ -23,7 +25,7 @@ export const UsersSkeletonTable = () => (
     <tbody>
       {[...Array(rowCount)].map((_, idx) => (
         <tr key={idx}>
-          {columns.map((col) => (
+          {tableColumnsNames.map((col) => (
             <td key={col.name}>
               <Skeleton width={col.width} height={"15px"} />
             </td>
