@@ -1,11 +1,11 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import style from "@/shared/ui/AppTableSkeleton/style.module.scss";
-import type { tableColumnsNamesType } from "@/entities/Users/ui/UsersTable/UsersTable.tsx";
+import type { IHeaderData } from "@/shared/ui/AppTable/AppTable.tsx";
 
 interface AppTableSkeletonProps {
   rowCount: number;
-  tableColumnsNames: tableColumnsNamesType[];
+  tableColumnsNames: IHeaderData[];
 }
 
 export const AppTableSkeleton = ({
@@ -16,8 +16,8 @@ export const AppTableSkeleton = ({
     <thead>
       <tr className={style.head}>
         {tableColumnsNames.map((col) => (
-          <th style={{ width: col.width }} key={col.name}>
-            {col.name}
+          <th style={{ width: col.colWidth }} key={col.title}>
+            {col.title}
           </th>
         ))}
       </tr>
@@ -26,8 +26,8 @@ export const AppTableSkeleton = ({
       {[...Array(rowCount)].map((_, idx) => (
         <tr key={idx}>
           {tableColumnsNames.map((col) => (
-            <td key={col.name}>
-              <Skeleton width={col.width} height={"15px"} />
+            <td key={col.title}>
+              <Skeleton width={col.colWidth} height={"15px"} />
             </td>
           ))}
         </tr>

@@ -3,12 +3,13 @@ import { type JSX, useEffect, useState } from "react";
 // import { BaseQueryDto } from "../../app/core/api/dto/BaseDto";
 import styles from "./AppTable.module.scss";
 import { AppPagination } from "@/shared/ui/AppPagination";
+import { AppTableSkeleton } from "@/shared/ui/AppTableSkeleton";
 interface ISortTableParams {
   active: boolean;
   input: JSX.Element;
 }
 
-interface IHeaderData {
+export interface IHeaderData {
   title: string;
   sort?: ISortTableParams;
   colWidth?: string; // px or %
@@ -36,9 +37,10 @@ interface ISelectorVoid<T> extends ISelector<keyof T> {
 type TSelector<T, TKey> = ISelectorName<TKey> | ISelectorVoid<T>;
 
 type IAppTable<T, TKey> = {
-  data: ITableData<T>;
+  data?: ITableData<T>;
   headerData: IHeaderData[];
   tableDataSelectors: TSelector<T, TKey>[];
+  isLoading?: boolean;
 };
 
 const LIMIT_PAGE = 1;
@@ -47,6 +49,7 @@ export const AppTable = <T, TKey extends keyof T>({
   headerData,
   data,
   tableDataSelectors,
+  isLoading,
 }: IAppTable<T, TKey>) => {
   const [tableData, setTableData] = useState<T[]>([]);
 
@@ -55,8 +58,16 @@ export const AppTable = <T, TKey extends keyof T>({
   };
 
   useEffect(() => {
+    if (!data) return;
     setTableData(data.results);
   }, [data]);
+
+  if (!data && isLoading) {
+    return (
+      <AppTableSkeleton rowCount={LIMIT_PAGE} tableColumnsNames={headerData} />
+    );
+  }
+
   return (
     <div className={styles.AppTableWrap}>
       <table>
