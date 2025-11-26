@@ -26,3 +26,10 @@ export interface GetUserListResponse {
   limit: number;
   results: UserListDto[];
 }
+
+// Create
+export interface CreateUserRequest {
+  email: string;
+  password: string;
+  role: UserRoles;
+}
