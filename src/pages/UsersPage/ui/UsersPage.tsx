@@ -1,5 +1,4 @@
-import { UsersHeader } from "@/entities/Users";
-import { UsersTable } from "@/entities/Users/ui/UsersTable/UsersTable.tsx";
+import { UsersHeader, UsersTable } from "@/entities/Users";
 
 const UsersPage = () => {
   return (

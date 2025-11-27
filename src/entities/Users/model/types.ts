@@ -26,3 +26,9 @@ export interface GetUserListResponse {
   limit: number;
   results: UserListDto[];
 }
+
+type Role = "superadmin" | "admin" | "manager" | "client";
+export interface UserRoleType {
+  value: Role;
+  label: string;
+}
