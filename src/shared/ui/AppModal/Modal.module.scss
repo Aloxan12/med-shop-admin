@@ -7,7 +7,7 @@
   opacity: 0;
   pointer-events: none;
   z-index: 100;
-  color: var(--text-secondary-color);
+  color: #000000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +39,7 @@
 }
 
 .modalBg {
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +55,7 @@
 .modalContent {
   padding: 24px;
   border-radius: 4px;
-  background: var(--bg-base);
+  background: var(--color-main-bg);
   transition: 0.3s transform;
   transform: scale(0.5);
   z-index: 1000;
@@ -95,7 +95,7 @@
 }
 .icoClose{
   cursor: pointer;
-  color: var(--text-muted-color);
+  //color: var(--text-muted-color);
 }
 
 

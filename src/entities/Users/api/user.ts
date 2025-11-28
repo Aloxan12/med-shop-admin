@@ -16,8 +16,8 @@ export const getUserList = async (
 };
 
 export const createUser = async (
-  data: CreateUserRequest,
+  data: CreateUserRequest, // <- исправил параметр
 ): Promise<UserListDto> => {
-  const response = await api.post<UserListDto>("/users", data);
+  const response = await api.post<UserListDto>("/users", data); // <- data вместо CreateUserRequest
   return response.data;
 };

@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
-import cls from "./AppModal.module.scss";
-import { classNames, type Mods } from "../../lib/classNames/classNames";
+import cls from "./Modal.module.scss";
+import { classNames, type Mods } from "@/shared/lib/classNames";
 
 import { useAppModal } from "../../lib/hooks/useAppModal";
 import { AppLoader } from "../AppLoader";
 import { AppText } from "../AppText";
 import { AppPortal } from "@/shared/ui/Portal";
+import { CircleX } from "lucide-react";
 
 const ANIMATION_DELAY = 300;
 
@@ -75,7 +76,7 @@ export const AppModal = ({
                 {title}
               </AppText>
               <span onClick={closeHandler} className={cls.icoClose}>
-                Х
+                <CircleX />
               </span>
             </div>
           )}

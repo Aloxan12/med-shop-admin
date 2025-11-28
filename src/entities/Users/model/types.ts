@@ -27,9 +27,14 @@ export interface GetUserListResponse {
   results: UserListDto[];
 }
 
-// Create
+type Role = "superadmin" | "admin" | "manager" | "client";
+export interface UserRoleType {
+  value: Role;
+  label: string;
+}
+
 export interface CreateUserRequest {
   email: string;
   password: string;
-  role: UserRoles;
+  role: Role;
 }
