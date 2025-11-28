@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import s from "./AppDropDown.module.scss";
 import { AppInput } from "@/shared/ui/AppInput";
 
@@ -39,7 +39,8 @@ export const AppDropdown = <T, TKey extends keyof T>({
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const handleSelect = (option: T) => {
+  const handleSelect = (option: T, e: React.MouseEvent) => {
+    e.stopPropagation();
     onSelect(option);
     setIsOpen(false);
   };
@@ -51,9 +52,6 @@ export const AppDropdown = <T, TKey extends keyof T>({
 
   return (
     <div className={s.dropdownContainer} onClick={toggleDropdown}>
-      {/*<div className={s.dropdownHeader} onClick={toggleDropdown}>*/}
-      {/*  {valueRepresent ? valueRepresent : placeholder}*/}
-      {/*</div>*/}
       <AppInput placeholder={placeholder} value={valueRepresent} />
       {isOpen && (
         <ul className={s.dropdownList} ref={dropdownRef}>
@@ -67,7 +65,7 @@ export const AppDropdown = <T, TKey extends keyof T>({
               <li
                 key={optionValue}
                 className={s.dropdownListItem}
-                onClick={() => handleSelect(option)}
+                onClick={(e) => handleSelect(option, e)}
               >
                 {optionName}
               </li>

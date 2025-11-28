@@ -7,7 +7,13 @@ import { AppButton } from "@/shared/ui/AppButton";
 import { usersRoleData } from "@/entities/Users/model/data.ts";
 import { useState } from "react";
 import type { UserRoleType } from "@/entities/Users/model/types.ts";
-export const CreateUserForm = () => {
+import { useCreateUser } from "@/entities/Users/api/useCreateUser.ts";
+
+type PropsType = {
+  closeModal: () => void;
+};
+
+export const CreateUserForm = ({ closeModal }: PropsType) => {
   const {
     control,
     handleSubmit,
@@ -17,9 +23,11 @@ export const CreateUserForm = () => {
     resolver: zodResolver(schema),
   });
   const [role, setRole] = useState<UserRoleType>(usersRoleData[3]);
+  const { mutate: createUser } = useCreateUser();
   const onSubmit = (data: any) => {
     const newData = { ...data, role: role?.value };
-    console.log(newData);
+    createUser(newData);
+    closeModal();
   };
 
   return (
@@ -44,7 +52,7 @@ export const CreateUserForm = () => {
         options={usersRoleData}
         onSelect={setRole}
       />
-      <AppButton type={"submit"} />
+      <AppButton type={"submit"} text={"создать"} />
     </form>
   );
 };

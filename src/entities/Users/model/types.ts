@@ -32,3 +32,9 @@ export interface UserRoleType {
   value: Role;
   label: string;
 }
+
+export interface CreateUserRequest {
+  email: string;
+  password: string;
+  role: Role;
+}

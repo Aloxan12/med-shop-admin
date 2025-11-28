@@ -43,7 +43,7 @@ type IAppTable<T, TKey> = {
   isLoading?: boolean;
 };
 
-const LIMIT_PAGE = 1;
+const LIMIT_PAGE = 5;
 
 export const AppTable = <T, TKey extends keyof T>({
   headerData,

@@ -22,7 +22,7 @@ export const UsersHeader = () => {
         title={"Создать новго пользователя"}
         width={"extraLarge"}
       >
-        <CreateUserForm />
+        <CreateUserForm closeModal={closeModal} />
       </AppModal>
     </>
   );
