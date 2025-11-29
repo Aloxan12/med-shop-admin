@@ -7,7 +7,6 @@ export const useCreateUser = (listParams?: GetUserListRequest) => {
 
   return useMutation({
     mutationFn: createUser,
-    // Инвалидируем КЭШ списка пользователей после успеха
     onSuccess: () => {
       // Перезагружаем конкретный список пользователей
       queryClient.invalidateQueries({
@@ -15,7 +14,7 @@ export const useCreateUser = (listParams?: GetUserListRequest) => {
       });
 
       // Или инвалидируем ВСЕ списки пользователей
-      // queryClient.invalidateQueries({ queryKey: ["userList"] });
+      queryClient.invalidateQueries({ queryKey: ["userList"] });
     },
   });
 };
