@@ -17,8 +17,8 @@ export const CreateUserForm = ({ closeModal }: PropsType) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
-    setValue,
+    // formState: { errors },
+    // setValue,
   } = useForm({
     resolver: zodResolver(schema),
   });
