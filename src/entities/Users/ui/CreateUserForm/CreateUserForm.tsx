@@ -8,6 +8,8 @@ import { usersRoleData } from "@/entities/Users/model/data.ts";
 import { useState } from "react";
 import type { UserRoleType } from "@/entities/Users/model/types.ts";
 import { useCreateUser } from "@/entities/Users/api/useCreateUser.ts";
+import { AppFlex } from "@/shared/ui/AppFlex";
+import styles from "./style.module.css";
 
 type PropsType = {
   closeModal: () => void;
@@ -32,26 +34,28 @@ export const CreateUserForm = ({ closeModal }: PropsType) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ControlledAppInput
-        control={control}
-        name="email"
-        placeholder={"Введите email"}
-        type="email"
-      />
-      <ControlledAppInput
-        control={control}
-        name="password"
-        placeholder={"Введите парль"}
-        type="password"
-      />
-      <AppDropdown
-        placeholder={"выберите роль"}
-        propsName={"label"}
-        propsValue={"value"}
-        value={role}
-        options={usersRoleData}
-        onSelect={setRole}
-      />
+      <AppFlex gap={"8"} className={styles.appFlex}>
+        <ControlledAppInput
+          control={control}
+          name="email"
+          placeholder={"Введите email"}
+          type="email"
+        />
+        <ControlledAppInput
+          control={control}
+          name="password"
+          placeholder={"Введите парль"}
+          type="password"
+        />
+        <AppDropdown
+          placeholder={"выберите роль"}
+          propsName={"label"}
+          propsValue={"value"}
+          value={role}
+          options={usersRoleData}
+          onSelect={setRole}
+        />
+      </AppFlex>
       <AppButton type={"submit"} text={"создать"} />
     </form>
   );
