@@ -66,7 +66,7 @@ export const AppInput = ({
         />
         {type === "password" && (
           <div className={cls.iconButton} onClick={toggleShow}>
-            {showPassword ? <EyeOff /> : <Eye />}
+            {showPassword ? <EyeOff size={"15"} /> : <Eye size={"15"} />}
           </div>
         )}
       </div>
