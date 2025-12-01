@@ -19,17 +19,28 @@ export const CreateUserForm = ({ closeModal }: PropsType) => {
   const {
     control,
     handleSubmit,
+    reset,
     // formState: { errors },
     // setValue,
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: {
+      email: "",
+      password: "",
+      role: usersRoleData[3].value,
+    },
   });
   const [role, setRole] = useState<UserRoleType>(usersRoleData[3]);
   const { mutate: createUser } = useCreateUser();
   const onSubmit = (data: any) => {
     const newData = { ...data, role: role?.value };
-    createUser(newData);
-    closeModal();
+    createUser(newData, {
+      onSuccess: () => {
+        reset();
+        setRole(usersRoleData[3]);
+        closeModal();
+      },
+    });
   };
 
   return (
@@ -44,7 +55,7 @@ export const CreateUserForm = ({ closeModal }: PropsType) => {
         <ControlledAppInput
           control={control}
           name="password"
-          placeholder={"Введите парль"}
+          placeholder={"Введите пароль"}
           type="password"
         />
         <AppDropdown

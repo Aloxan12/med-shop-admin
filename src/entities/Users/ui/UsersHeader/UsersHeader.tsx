@@ -16,14 +16,16 @@ export const UsersHeader = () => {
     <>
       {" "}
       <AppTitleBlock title="Пользователи" actions={actions} />
-      <AppModal
-        onClose={closeModal}
-        isOpen={open}
-        title={"Создать новго пользователя"}
-        width={"extraLarge"}
-      >
-        <CreateUserForm closeModal={closeModal} />
-      </AppModal>
+      {open && (
+        <AppModal
+          onClose={closeModal}
+          // isOpen={open}
+          title={"Создать новго пользователя"}
+          width={"extraLarge"}
+        >
+          <CreateUserForm closeModal={closeModal} />
+        </AppModal>
+      )}
     </>
   );
 };
