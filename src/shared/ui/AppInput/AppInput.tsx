@@ -18,6 +18,7 @@ interface AppInputProps extends HTMLInputProps {
   mask?: InputMaskType;
   fullWidth?: boolean;
   error?: string;
+  readOnly?: boolean;
 }
 
 export const AppInput = ({
@@ -29,6 +30,7 @@ export const AppInput = ({
   type,
   mask,
   error,
+  readOnly,
   ...otherProps
 }: AppInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -57,9 +59,11 @@ export const AppInput = ({
       {!!label && <label className={cls.label}>{label}</label>}
       <div className={cls.inputBlock}>
         <input
+          readOnly={readOnly}
           value={value || ""}
           type={actualType}
           placeholder={placeholder}
+          onFocus={readOnly ? (e) => e.target.blur() : undefined}
           onChange={onChangeHandler}
           {...otherProps}
           className={cls.inputBase}
