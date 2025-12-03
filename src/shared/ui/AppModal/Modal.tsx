@@ -22,7 +22,7 @@ interface AppModalProps {
   className?: string;
   classNameContent?: string;
   children?: ReactNode;
-  isOpen?: boolean;
+  // isOpen?: boolean;
   onClose?: () => void;
   title?: string;
   width?: ModalWidth;
@@ -35,7 +35,7 @@ export const AppModal = ({
   children,
   className,
   classNameContent,
-  isOpen,
+  // isOpen,
   onClose,
   title,
   width = "default",
@@ -44,18 +44,17 @@ export const AppModal = ({
   isLoading,
 }: AppModalProps) => {
   const { isMounted, closeHandler, isClosing } = useAppModal({
-    isOpen,
     delay,
     onClose,
   });
 
   const mods: Mods = {
-    [cls.opened]: isOpen,
+    [cls.opened]: true,
     [cls.isClosing]: isClosing,
-    "app-modal": isOpen,
+    "app-modal": true,
   };
 
-  if (lazy && !isMounted && !isOpen) {
+  if (lazy && !isMounted) {
     return null;
   }
 

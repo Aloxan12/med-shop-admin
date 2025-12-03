@@ -22,6 +22,11 @@
         color: var(--text-muted);
       }
     }
+    .inputBase[readonly] {
+      caret-color: transparent;
+      cursor: pointer; /* курсор со стрелкой, а не текстовый */
+      user-select: none; /* запрет выделения, по желанию */
+    }
 
     .iconButton {
       cursor: pointer;

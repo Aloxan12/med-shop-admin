@@ -20,7 +20,7 @@ export const AppDropdown = <T, TKey extends keyof T>({
   value,
 }: AppDropdownProps<T, TKey>) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const dropdownRef = useRef<HTMLUListElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -51,10 +51,14 @@ export const AppDropdown = <T, TKey extends keyof T>({
     : "";
 
   return (
-    <div className={s.dropdownContainer} onClick={toggleDropdown}>
-      <AppInput placeholder={placeholder} value={valueRepresent} />
+    <div
+      className={s.dropdownContainer}
+      onClick={toggleDropdown}
+      ref={dropdownRef}
+    >
+      <AppInput placeholder={placeholder} value={valueRepresent} readOnly />
       {isOpen && (
-        <ul className={s.dropdownList} ref={dropdownRef}>
+        <ul className={s.dropdownList}>
           {options.map((option) => {
             const optionName = propsName ? `${option[propsName]}` : `${option}`;
             const optionValue = propsValue
