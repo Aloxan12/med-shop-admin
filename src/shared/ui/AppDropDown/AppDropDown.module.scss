@@ -1,6 +1,11 @@
 .dropdownContainer {
   width: 200px;
   position: relative;
+
+
+  &.fullWidth {
+    width: 100%;
+  }
 }
 
 .dropdownHeader {
@@ -29,6 +34,12 @@
   padding: 10px;
   cursor: pointer;
   border-bottom: 1px solid #eee;
+
+  &.active {
+    pointer-events: none;
+    color: var(--color-main-bg);
+    background-color: var(--primary);
+  }
 }
 
 .dropdownListItem:hover {

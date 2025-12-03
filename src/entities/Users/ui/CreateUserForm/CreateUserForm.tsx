@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schema } from "@/entities/Users/ui/CreateUserForm/shema.ts";
+import { schema } from "./shema.ts";
 import { ControlledAppInput } from "@/shared/ui/AppControlledInput";
 import { AppDropdown } from "@/shared/ui/AppDropDown/AppDropDown.tsx";
 import { AppButton } from "@/shared/ui/AppButton";
@@ -20,24 +20,31 @@ export const CreateUserForm = ({ closeModal }: PropsType) => {
     control,
     handleSubmit,
     reset,
-    // formState: { errors },
-    // setValue,
+    setError,
+    setValue,
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       email: "",
       password: "",
-      role: usersRoleData[3].value,
+      role: null,
     },
   });
-  const [role, setRole] = useState<UserRoleType>(usersRoleData[3]);
+  const [role, setRole] = useState<UserRoleType | null>(null);
   const { mutate: createUser } = useCreateUser();
+
+  const setRoleHandler = (value: UserRoleType) => {
+    setRole(value);
+    setValue("role", value.value);
+    setError("role", {});
+  };
+
   const onSubmit = (data: any) => {
     const newData = { ...data, role: role?.value };
     createUser(newData, {
       onSuccess: () => {
         reset();
-        setRole(usersRoleData[3]);
         closeModal();
       },
     });
@@ -45,18 +52,26 @@ export const CreateUserForm = ({ closeModal }: PropsType) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <AppFlex gap={"8"} className={styles.appFlex}>
+      <AppFlex
+        direction="column"
+        align="start"
+        gap={"26"}
+        fullWidth
+        className={styles.appFlex}
+      >
         <ControlledAppInput
           control={control}
           name="email"
           placeholder={"Введите email"}
           type="email"
+          fullWidth
         />
         <ControlledAppInput
           control={control}
           name="password"
           placeholder={"Введите пароль"}
           type="password"
+          fullWidth
         />
         <AppDropdown
           placeholder={"выберите роль"}
@@ -64,7 +79,9 @@ export const CreateUserForm = ({ closeModal }: PropsType) => {
           propsValue={"value"}
           value={role}
           options={usersRoleData}
-          onSelect={setRole}
+          onSelect={setRoleHandler}
+          fullWidth
+          error={errors.role?.message}
         />
       </AppFlex>
       <AppButton type={"submit"} text={"создать"} />

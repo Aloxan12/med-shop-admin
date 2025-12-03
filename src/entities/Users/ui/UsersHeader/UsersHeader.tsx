@@ -21,7 +21,7 @@ export const UsersHeader = () => {
           onClose={closeModal}
           // isOpen={open}
           title={"Создать новго пользователя"}
-          width={"extraLarge"}
+          width={"medium"}
         >
           <CreateUserForm closeModal={closeModal} />
         </AppModal>

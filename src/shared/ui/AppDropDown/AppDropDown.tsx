@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import s from "./AppDropDown.module.scss";
 import { AppInput } from "@/shared/ui/AppInput";
+import { classNames, type Mods } from "@/shared/lib/classNames";
 
 interface AppDropdownProps<T, TKey extends keyof T> {
   options: T[];
@@ -9,6 +10,8 @@ interface AppDropdownProps<T, TKey extends keyof T> {
   onSelect: (option: T) => void;
   placeholder: string;
   value: T | null;
+  fullWidth?: boolean;
+  error?: string;
 }
 
 export const AppDropdown = <T, TKey extends keyof T>({
@@ -18,6 +21,8 @@ export const AppDropdown = <T, TKey extends keyof T>({
   propsName,
   propsValue,
   value,
+  fullWidth,
+  error,
 }: AppDropdownProps<T, TKey>) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -44,6 +49,11 @@ export const AppDropdown = <T, TKey extends keyof T>({
     onSelect(option);
     setIsOpen(false);
   };
+
+  const mods: Mods = {
+    [s.fullWidth]: !!fullWidth,
+  };
+
   const valueRepresent = value
     ? propsName
       ? `${value[propsName]}`
@@ -52,11 +62,17 @@ export const AppDropdown = <T, TKey extends keyof T>({
 
   return (
     <div
-      className={s.dropdownContainer}
+      className={classNames(s.dropdownContainer, mods)}
       onClick={toggleDropdown}
       ref={dropdownRef}
     >
-      <AppInput placeholder={placeholder} value={valueRepresent} readOnly />
+      <AppInput
+        placeholder={placeholder}
+        value={valueRepresent}
+        readOnly
+        fullWidth={fullWidth}
+        error={error}
+      />
       {isOpen && (
         <ul className={s.dropdownList}>
           {options.map((option) => {
@@ -65,10 +81,15 @@ export const AppDropdown = <T, TKey extends keyof T>({
               ? `${option[propsValue]}`
               : `${option}`;
 
+            const currentValue =
+              propsValue && value ? `${value[propsValue]}` : `${value || ""}`;
+
             return (
               <li
                 key={optionValue}
-                className={s.dropdownListItem}
+                className={classNames(s.dropdownListItem, {
+                  [s.active]: optionValue === currentValue,
+                })}
                 onClick={(e) => handleSelect(option, e)}
               >
                 {optionName}

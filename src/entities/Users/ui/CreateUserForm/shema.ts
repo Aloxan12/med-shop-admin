@@ -9,5 +9,10 @@ export const schema = z.object({
   password: z
     .string()
     .min(6, { message: "Пароль должен быть минимум 6 символов" }),
-  role: z.enum(["superadmin", "admin", "manager", "client"], {}),
+  role: z
+    .enum(["superadmin", "admin", "manager", "client"], {
+      message: "Обязательное поле",
+    })
+    .nullable()
+    .refine((val) => val !== null, "Выберите роль"),
 });
