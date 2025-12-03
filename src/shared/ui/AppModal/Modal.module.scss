@@ -22,19 +22,30 @@
     transform: scale(0.2);
     animation: opening .3s ease-in-out forwards;
   }
+
   @keyframes opening {
-    0% { transform: scale(0.2); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(0.2);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 }
+
 .isClosing {
   .modalContent {
     // transform: scale(0.2);
     animation: closing .3s ease-in-out forwards;
   }
+
   @keyframes closing {
-    0% { transform: scale(1); }
-    100% { transform: scale(0.2); }
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0.2);
+    }
   }
 }
 
@@ -60,42 +71,47 @@
   transform: scale(0.5);
   z-index: 1000;
 
-  &.default{
+  &.default {
     width: 500px;
   }
-  &.small{
+
+  &.small {
     width: 300px;
   }
-  &.medium{
+
+  &.medium {
     width: 642px;
   }
-  &.large{
+
+  &.large {
     width: 800px;
   }
-  &.extraLarge{
+
+  &.extraLarge {
     width: 1140px;
   }
-  &.full{
+
+  &.full {
     width: 100%;
     height: 100dvh;
     border-radius: 0;
   }
 
-  .titleWrap{
+  .titleWrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 26px;
     font-weight: 700;
   }
 
-  .modalContentChildren{
+  .modalContentChildren {
     height: 100%;
   }
 }
-.icoClose{
+
+.icoClose {
   cursor: pointer;
-  //color: var(--text-muted-color);
 }
 
 

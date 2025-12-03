@@ -14,7 +14,6 @@ export const UsersHeader = () => {
   );
   return (
     <>
-      {" "}
       <AppTitleBlock title="Пользователи" actions={actions} />
       {open && (
         <AppModal
