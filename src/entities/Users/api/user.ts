@@ -1,15 +1,26 @@
 import { api } from "@/shared/api";
 import type {
   CreateUserRequest,
+  GetUserDetailRequest,
   GetUserListRequest,
   GetUserListResponse,
   UserListDto,
 } from "../model/types";
+import type { User } from "@/entities/Login/model/types.ts";
 
 export const getUserList = async (
   data: GetUserListRequest,
 ): Promise<GetUserListResponse> => {
   const response = await api.get<GetUserListResponse>("/users", {
+    params: data,
+  });
+  return response.data;
+};
+
+export const getUserDetail = async (
+  data: GetUserDetailRequest,
+): Promise<User> => {
+  const response = await api.get<User>("/users/currentUser", {
     params: data,
   });
   return response.data;

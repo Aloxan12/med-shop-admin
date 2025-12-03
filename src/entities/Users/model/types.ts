@@ -19,6 +19,8 @@ export interface GetUserListRequest {
   page?: number;
 }
 
+export interface GetUserDetailRequest {}
+
 export interface GetUserListResponse {
   count: number;
   pages: number;
@@ -28,6 +30,7 @@ export interface GetUserListResponse {
 }
 
 type Role = "superadmin" | "admin" | "manager" | "client";
+
 export interface UserRoleType {
   value: Role;
   label: string;
