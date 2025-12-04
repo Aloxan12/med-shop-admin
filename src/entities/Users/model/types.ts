@@ -19,7 +19,7 @@ export interface GetUserListRequest {
   page?: number;
 }
 
-// export interface GetUserDetailRequest {}
+export type GetUserDetailRequest = object;
 
 export interface GetUserListResponse {
   count: number;
