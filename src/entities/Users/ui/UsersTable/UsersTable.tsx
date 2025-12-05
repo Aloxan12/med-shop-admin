@@ -3,6 +3,7 @@ import { userHeaderData } from "@/entities/Users/model/data.ts";
 import { useUserList } from "@/entities/Users/api/useUser.ts";
 import { useParamsControl } from "@/shared/lib/hooks/useParamsControl.ts";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Pencil } from "lucide-react";
 
 export const UsersTable = () => {
   const params = useParamsControl<
@@ -23,8 +24,12 @@ export const UsersTable = () => {
       headerData={userHeaderData}
       isLoading={isLoading}
       data={data}
-      //почему нельзя этот массив вынести в переменную
-      tableDataSelectors={[{ name: "id" }, { name: "email" }, { name: "role" }]}
+      tableDataSelectors={[
+        { name: "id" },
+        { name: "email" },
+        { name: "role" },
+        { renderItem: () => <Pencil size={"20"} color={"blue"} /> },
+      ]}
     />
   );
 };

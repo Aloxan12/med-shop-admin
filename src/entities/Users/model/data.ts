@@ -1,9 +1,10 @@
 import type { UserRoleType } from "@/entities/Users/model/types.ts";
 
 export const userHeaderData = [
-  { title: "Id", colWidth: "50%" },
+  { title: "Id", colWidth: "45%" },
   { title: "Email" },
-  { title: "Role", colWidth: "50%" },
+  { title: "Role", colWidth: "45%" },
+  { title: "Action", colWidth: "5%" },
 ];
 
 export const usersRoleData: UserRoleType[] = [

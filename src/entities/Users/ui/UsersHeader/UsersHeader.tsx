@@ -1,5 +1,4 @@
 import { AppTitleBlock } from "@/widgets/AppTitleBlock";
-import { AppModal } from "@/shared/ui/AppModal";
 
 import { UserRoundPlus } from "lucide-react";
 import { CreateUserForm } from "@/entities/Users";
@@ -15,16 +14,7 @@ export const UsersHeader = () => {
   return (
     <>
       <AppTitleBlock title="Пользователи" actions={actions} />
-      {open && (
-        <AppModal
-          onClose={closeModal}
-          // isOpen={open}
-          title={"Создать новго пользователя"}
-          width={"medium"}
-        >
-          <CreateUserForm closeModal={closeModal} />
-        </AppModal>
-      )}
+      {open && <CreateUserForm closeModal={closeModal} />}
     </>
   );
 };
