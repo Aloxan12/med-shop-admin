@@ -6,10 +6,12 @@ import type { User } from "@/entities/Login/model/types.ts";
 
 export const useUserList = (
   params: GetUserListRequest,
+  extraParams?: { skip?: boolean },
 ): UseQueryResult<GetUserListResponse, unknown> => {
   return useAppQuery<GetUserListResponse, unknown>(
     ["userList", params] as const, // <- QueryKey
     () => getUserList(params), // <- queryFn
+    { enabled: !extraParams?.skip },
   );
 };
 
