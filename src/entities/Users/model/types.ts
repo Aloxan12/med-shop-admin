@@ -19,8 +19,6 @@ export interface GetUserListRequest {
   page?: number;
 }
 
-export type GetUserDetailRequest = object;
-
 export interface GetUserListResponse {
   count: number;
   pages: number;
