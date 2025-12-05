@@ -1,7 +1,6 @@
 import { api } from "@/shared/api";
 import type {
   CreateUserRequest,
-  GetUserDetailRequest,
   GetUserListRequest,
   GetUserListResponse,
   UserListDto,
@@ -17,12 +16,8 @@ export const getUserList = async (
   return response.data;
 };
 
-export const getUserDetail = async (
-  data: GetUserDetailRequest,
-): Promise<User> => {
-  const response = await api.get<User>("/users/currentUser", {
-    params: data,
-  });
+export const getUserDetail = async (): Promise<User> => {
+  const response = await api.get<User>("/users/currentUser");
   return response.data;
 };
 

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export const isPaginationResetReg = /(limit=\d+&page=\d+)|[&]/g;
-
 interface UseParamsControlTypeBase<T, TKey extends keyof T> {
-  paramsList: (TKey | undefined)[];
+  paramsList: TKey[];
 }
 
 interface UseParamsControlTypeWithoutPagination<T, TKey extends keyof T>
@@ -17,7 +15,6 @@ interface UseParamsControlTypeWithoutPagination<T, TKey extends keyof T>
 interface UseParamsControlTypeWithPagination<T, TKey extends keyof T>
   extends UseParamsControlTypeBase<T, TKey> {
   withPagination: true;
-  resetPagination?: boolean;
   limit?: number;
 }
 
@@ -28,29 +25,15 @@ type UseParamsControlType<T, TKey extends keyof T> =
 export const useParamsControl = <T, TKey extends keyof T>({
   paramsList,
   withPagination,
-  resetPagination,
-  limit,
+  // limit,
 }: UseParamsControlType<T, TKey>) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const search = searchParams.toString();
   const [params, setParams] = useState<null | T>(null);
 
-  const fullParamsList: (TKey | undefined)[] = withPagination
+  const fullParamsList: TKey[] = withPagination
     ? ["limit" as TKey, "page" as TKey, ...paramsList]
     : paramsList;
-
-  const searchParamsWithoutPagination = search.replace(
-    isPaginationResetReg,
-    "",
-  );
-
-  useEffect(() => {
-    if (resetPagination) {
-      searchParams.set("limit", `${limit ? limit : "10"}`);
-      searchParams.set("page", "1");
-      setSearchParams(searchParams.toString());
-    }
-  }, [searchParamsWithoutPagination]);
 
   useEffect(() => {
     const newParams = {} as {
@@ -70,7 +53,8 @@ export const useParamsControl = <T, TKey extends keyof T>({
       {},
     ) as T;
     setParams(newState);
-  }, [search]);
+    // eslint-disable-next-line
+    }, [search]);
 
   return params as T;
 };
