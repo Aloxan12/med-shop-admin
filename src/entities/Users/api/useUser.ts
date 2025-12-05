@@ -21,9 +21,12 @@ export const useUserList = (
 
 export const useUserDetail = (
   params: GetUserDetailRequest,
+  enabled: boolean = true,
 ): UseQueryResult<User, unknown> => {
-  return useAppQuery<User, unknown>(["currentUser", params] as const, () =>
-    getUserDetail(params),
+  return useAppQuery<User, unknown>(
+    ["currentUser", params] as const,
+    () => getUserDetail(params),
+    { enabled },
   );
 };
 
