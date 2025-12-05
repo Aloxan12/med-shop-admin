@@ -9,7 +9,7 @@ import { useUserDetail } from "@/entities/Users/api/useUser.ts";
 export const MainLayout = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
   const { user, token, setUser } = useAuthStore();
-  const { data } = useUserDetail({});
+  const { data } = useUserDetail({}, !user);
 
   const onSidebarToggle = useCallback(
     () => setIsOpenSidebar((prev) => !prev),
