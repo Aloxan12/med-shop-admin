@@ -13,12 +13,12 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       token: null,
       refresh: null,
       setToken: (token, refresh, user) =>
-        set({ user: user || null, token, refresh }),
+        set({ user: user || token ? get().user : null, token, refresh }),
       setUser: (user: User) => set({ user }),
       logout: () => set({ user: null, token: null, refresh: null }),
     }),

@@ -1,10 +1,4 @@
-import {
-  type MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface IUseAppModal {
   isOpen?: boolean;
@@ -15,9 +9,7 @@ interface IUseAppModal {
 export const useAppModal = ({ isOpen, delay, onClose }: IUseAppModal) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const timerRef = useRef(null) as MutableRefObject<ReturnType<
-    typeof setTimeout
-  > | null>;
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -33,7 +25,7 @@ export const useAppModal = ({ isOpen, delay, onClose }: IUseAppModal) => {
         setIsClosing(false);
       }, delay);
     }
-  }, [onClose]);
+  }, [delay, onClose]);
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {

@@ -9,7 +9,10 @@ import {
 export function useAppQuery<TData, TError = unknown>(
   key: readonly unknown[], // <- вместо QueryKey
   queryFn: () => Promise<TData>,
-  options?: UseQueryOptions<TData, TError, TData, readonly unknown[]>,
+  options?: Omit<
+    UseQueryOptions<TData, TError, TData, readonly unknown[]>,
+    "queryKey" | "queryFn"
+  >,
 ): UseQueryResult<TData, TError> {
   return useQuery<TData, TError, TData, readonly unknown[]>({
     queryKey: key,
