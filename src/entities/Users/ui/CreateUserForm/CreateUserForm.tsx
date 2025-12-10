@@ -14,9 +14,10 @@ import { AppModal } from "@/shared/ui/AppModal";
 
 type PropsType = {
   closeModal: () => void;
+  id?: string;
 };
 
-export const CreateUserForm = ({ closeModal }: PropsType) => {
+export const CreateUserForm = ({ closeModal, id }: PropsType) => {
   const {
     control,
     handleSubmit,
@@ -68,13 +69,16 @@ export const CreateUserForm = ({ closeModal }: PropsType) => {
             type="email"
             fullWidth
           />
-          <ControlledAppInput
-            control={control}
-            name="password"
-            placeholder={"Введите пароль"}
-            type="password"
-            fullWidth
-          />
+          {!id && (
+            <ControlledAppInput
+              control={control}
+              name="password"
+              placeholder={"Введите пароль"}
+              type="password"
+              fullWidth
+            />
+          )}
+
           <AppDropdown
             placeholder={"выберите роль"}
             propsName={"label"}
