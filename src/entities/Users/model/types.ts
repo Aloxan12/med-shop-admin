@@ -1,14 +1,14 @@
-export enum UserRoles {
-  superadmin = "superadmin",
-  admin = "admin",
-  manager = "manager",
-  client = "client ",
-}
+// export enum UserRoles {
+//   superadmin = "superadmin",
+//   admin = "admin",
+//   manager = "manager",
+//   client = "client ",
+// }
 
 export interface UserListDto {
   id: string;
   email: string;
-  role: UserRoles;
+  role: Role;
   isActive: boolean;
   createdAt: string;
 }
@@ -39,3 +39,4 @@ export interface CreateUserRequest {
   password: string;
   role: Role;
 }
+export type UpdateUserRequest = Omit<CreateUserRequest, "password">;

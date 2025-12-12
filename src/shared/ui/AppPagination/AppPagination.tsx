@@ -79,11 +79,11 @@ export const AppPagination = ({
     // eslint-disable-next-line
     }, [currentPage, limit]);
 
-  useEffect(() => {
-    if (!!page && Number(page) !== currentPage) {
-      setCurrentPage(Number(page));
-    }
-  }, [currentPage, page]);
+  // useEffect(() => {
+  //   if (!!page && Number(page) !== currentPage) {
+  //     setCurrentPage(Number(page));
+  //   }
+  // }, [currentPage, page]);
 
   return (
     <div className={cls.AppPaginationWrap}>

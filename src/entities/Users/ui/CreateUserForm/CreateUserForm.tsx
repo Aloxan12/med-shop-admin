@@ -5,19 +5,26 @@ import { ControlledAppInput } from "@/shared/ui/AppControlledInput";
 import { AppDropdown } from "@/shared/ui/AppDropDown/AppDropDown.tsx";
 import { AppButton } from "@/shared/ui/AppButton";
 import { usersRoleData } from "@/entities/Users/model/data.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { UserRoleType } from "@/entities/Users/model/types.ts";
 import { useCreateUser } from "@/entities/Users/api/useCreateUser.ts";
 import { AppFlex } from "@/shared/ui/AppFlex";
 import styles from "./style.module.css";
 import { AppModal } from "@/shared/ui/AppModal";
+import { useUserById } from "@/entities/Users/api/useGetUserById.ts";
+import { AppLoader } from "@/shared/ui/AppLoader";
 
 type PropsType = {
   closeModal: () => void;
-  id?: string;
+  userId?: string;
+  modalTitle: string;
 };
 
-export const CreateUserForm = ({ closeModal, id }: PropsType) => {
+export const CreateUserForm = ({
+  closeModal,
+  userId,
+  modalTitle,
+}: PropsType) => {
   const {
     control,
     handleSubmit,
@@ -35,12 +42,21 @@ export const CreateUserForm = ({ closeModal, id }: PropsType) => {
   });
   const [role, setRole] = useState<UserRoleType | null>(null);
   const { mutate: createUser } = useCreateUser();
+  const { data: editingUser, isLoading: isUserLoading } = useUserById(userId);
 
   const setRoleHandler = (value: UserRoleType) => {
     setRole(value);
     setValue("role", value.value);
     setError("role", {});
   };
+  useEffect(() => {
+    if (editingUser) {
+      setValue("email", editingUser.email);
+      setValue("role", editingUser.role);
+      const roleObj = usersRoleData.find((r) => r.value === editingUser.role);
+      setRole(roleObj || null);
+    }
+  }, [editingUser, setValue]);
 
   const onSubmit = (data: any) => {
     const newData = { ...data, role: role?.value };
@@ -52,8 +68,12 @@ export const CreateUserForm = ({ closeModal, id }: PropsType) => {
     });
   };
 
+  if (isUserLoading) {
+    return <AppLoader />;
+  }
+
   return (
-    <AppModal>
+    <AppModal title={modalTitle} onClose={closeModal}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <AppFlex
           direction="column"
@@ -69,7 +89,7 @@ export const CreateUserForm = ({ closeModal, id }: PropsType) => {
             type="email"
             fullWidth
           />
-          {!id && (
+          {!userId && (
             <ControlledAppInput
               control={control}
               name="password"
@@ -90,7 +110,7 @@ export const CreateUserForm = ({ closeModal, id }: PropsType) => {
             error={errors.role?.message}
           />
         </AppFlex>
-        <AppButton type={"submit"} text={"создать"} />
+        <AppButton type={"submit"} text={!userId ? "создать" : "изменить"} />
       </form>
     </AppModal>
   );

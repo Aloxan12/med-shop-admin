@@ -14,7 +14,12 @@ export const UsersHeader = () => {
   return (
     <>
       <AppTitleBlock title="Пользователи" actions={actions} />
-      {open && <CreateUserForm closeModal={closeModal} />}
+      {open && (
+        <CreateUserForm
+          closeModal={closeModal}
+          modalTitle={"Создать нового пользователя"}
+        />
+      )}
     </>
   );
 };
