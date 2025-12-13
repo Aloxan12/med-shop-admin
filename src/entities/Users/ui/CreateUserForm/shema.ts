@@ -8,7 +8,8 @@ export const schema = z.object({
     .email({ message: "Введите корректный email" }),
   password: z
     .string()
-    .min(6, { message: "Пароль должен быть минимум 6 символов" }),
+    .min(6, { message: "Пароль должен быть минимум 6 символов" })
+    .optional(),
   role: z
     .enum(["superadmin", "admin", "manager", "client"], {
       message: "Обязательное поле",

@@ -13,6 +13,7 @@ import styles from "./style.module.css";
 import { AppModal } from "@/shared/ui/AppModal";
 import { useUserById } from "@/entities/Users/api/useGetUserById.ts";
 import { AppLoader } from "@/shared/ui/AppLoader";
+import { useEditUser } from "@/entities/Users/api/useEditUser.ts";
 
 type PropsType = {
   closeModal: () => void;
@@ -43,12 +44,14 @@ export const CreateUserForm = ({
   const [role, setRole] = useState<UserRoleType | null>(null);
   const { mutate: createUser } = useCreateUser();
   const { data: editingUser, isLoading: isUserLoading } = useUserById(userId);
+  const { mutate: editUser } = useEditUser();
 
   const setRoleHandler = (value: UserRoleType) => {
     setRole(value);
     setValue("role", value.value);
     setError("role", {});
   };
+
   useEffect(() => {
     if (editingUser) {
       setValue("email", editingUser.email);
@@ -58,14 +61,34 @@ export const CreateUserForm = ({
     }
   }, [editingUser, setValue]);
 
+  useEffect(() => {
+    console.log("editingUser.role:", editingUser?.role);
+    console.log("usersRoleData:", usersRoleData);
+  }, []);
+
   const onSubmit = (data: any) => {
-    const newData = { ...data, role: role?.value };
-    createUser(newData, {
-      onSuccess: () => {
-        reset();
-        closeModal();
-      },
-    });
+    const submitData = { ...data, role: role?.value ?? data.role };
+
+    if (userId) {
+      const { password, ...editdata } = submitData;
+
+      editUser(
+        { id: userId, data: editdata },
+        {
+          onSuccess: () => {
+            reset();
+            closeModal();
+          },
+        },
+      );
+    } else {
+      createUser(submitData, {
+        onSuccess: () => {
+          reset();
+          closeModal();
+        },
+      });
+    }
   };
 
   if (isUserLoading) {
