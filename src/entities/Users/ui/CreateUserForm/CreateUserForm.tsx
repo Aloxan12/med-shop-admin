@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schema } from "./shema.ts";
+import { createUserSchema, editUserSchema } from "./shema.ts";
 import { ControlledAppInput } from "@/shared/ui/AppControlledInput";
 import { AppDropdown } from "@/shared/ui/AppDropDown/AppDropDown.tsx";
 import { AppButton } from "@/shared/ui/AppButton";
@@ -26,6 +26,7 @@ export const CreateUserForm = ({
   userId,
   modalTitle,
 }: PropsType) => {
+  const isEditMode = !!userId;
   const {
     control,
     handleSubmit,
@@ -34,7 +35,7 @@ export const CreateUserForm = ({
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(isEditMode ? editUserSchema : createUserSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -60,18 +61,18 @@ export const CreateUserForm = ({
       setRole(roleObj || null);
     }
   }, [editingUser, setValue]);
-
   useEffect(() => {
-    console.log("editingUser.role:", editingUser?.role);
-    console.log("usersRoleData:", usersRoleData);
+    // console.log("editingUser.role:", editingUser?.role);
+    // console.log("usersRoleData:", usersRoleData);
   }, []);
+  console.log(errors);
 
   const onSubmit = (data: any) => {
     const submitData = { ...data, role: role?.value ?? data.role };
-
+    const { password, ...editdata } = submitData;
+    const createdData = { ...editdata, password };
+    // console.log(userId);
     if (userId) {
-      const { password, ...editdata } = submitData;
-
       editUser(
         { id: userId, data: editdata },
         {
@@ -82,7 +83,7 @@ export const CreateUserForm = ({
         },
       );
     } else {
-      createUser(submitData, {
+      createUser(createdData, {
         onSuccess: () => {
           reset();
           closeModal();
