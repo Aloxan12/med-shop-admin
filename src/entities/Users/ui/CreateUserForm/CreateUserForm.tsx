@@ -14,6 +14,7 @@ import { AppModal } from "@/shared/ui/AppModal";
 import { useUserById } from "@/entities/Users/api/useGetUserById.ts";
 import { AppLoader } from "@/shared/ui/AppLoader";
 import { useEditUser } from "@/entities/Users/api/useEditUser.ts";
+import { toast } from "react-hot-toast";
 
 type PropsType = {
   closeModal: () => void;
@@ -61,22 +62,17 @@ export const CreateUserForm = ({
       setRole(roleObj || null);
     }
   }, [editingUser, setValue]);
-  useEffect(() => {
-    // console.log("editingUser.role:", editingUser?.role);
-    // console.log("usersRoleData:", usersRoleData);
-  }, []);
-  console.log(errors);
 
   const onSubmit = (data: any) => {
     const submitData = { ...data, role: role?.value ?? data.role };
     const { password, ...editdata } = submitData;
     const createdData = { ...editdata, password };
-    // console.log(userId);
     if (userId) {
       editUser(
         { id: userId, data: editdata },
         {
           onSuccess: () => {
+            toast.success("Пользователь успешно обновлен!");
             reset();
             closeModal();
           },
@@ -85,6 +81,7 @@ export const CreateUserForm = ({
     } else {
       createUser(createdData, {
         onSuccess: () => {
+          toast.success("Пользователь успешно создан!");
           reset();
           closeModal();
         },
