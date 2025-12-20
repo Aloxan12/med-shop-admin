@@ -10,7 +10,7 @@ export const useEditUser = () => {
       editUser(id, data),
     onSuccess: (_, variables) => {
       // Обновить список пользователей
-      // queryClient.invalidateQueries({ queryKey: ["userList"] });
+      queryClient.invalidateQueries({ queryKey: ["userList"] });
 
       // Опционально: обновить/инвалидировать конкретного пользователя
       queryClient.invalidateQueries({ queryKey: ["user", variables.id] });
