@@ -1,6 +1,5 @@
 import { AppTable } from "@/shared/ui/AppTable";
 import { userHeaderData } from "../../model/data.ts";
-import "react-loading-skeleton/dist/skeleton.css";
 import { Pencil } from "lucide-react";
 import { useGetUserList } from "../../hooks/useGetUserList.ts";
 import { useState } from "react";
