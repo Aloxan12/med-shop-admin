@@ -53,6 +53,11 @@ export const CreateUserForm = ({
     setValue("role", value.value);
     setError("role", {});
   };
+  const handleSuccess = (message: string) => {
+    toast.success(message);
+    reset();
+    closeModal();
+  };
 
   useEffect(() => {
     if (editingUser) {
@@ -71,20 +76,12 @@ export const CreateUserForm = ({
       editUser(
         { id: userId, data: editdata },
         {
-          onSuccess: () => {
-            toast.success("Пользователь успешно обновлен!");
-            reset();
-            closeModal();
-          },
+          onSuccess: () => handleSuccess("Пользователь успешно обновлен!"),
         },
       );
     } else {
       createUser(createdData, {
-        onSuccess: () => {
-          toast.success("Пользователь успешно создан!");
-          reset();
-          closeModal();
-        },
+        onSuccess: () => handleSuccess("Пользователь успешно создан!"),
       });
     }
   };
