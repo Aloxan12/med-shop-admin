@@ -1,4 +1,3 @@
-import "react-loading-skeleton/dist/skeleton.css";
 import style from "@/shared/ui/AppTableSkeleton/style.module.scss";
 import type { IHeaderData } from "@/shared/ui/AppTable/AppTable.tsx";
 import { AppSkeleton } from "@/shared/ui/AppSkeletton/AppSkeletton.tsx";

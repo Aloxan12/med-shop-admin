@@ -1,6 +1,4 @@
 import { type JSX, useEffect, useState } from "react";
-//import { AppPagination } from "../../shared/ui/AppPagination/AppPagination";
-// import { BaseQueryDto } from "../../app/core/api/dto/BaseDto";
 import styles from "./AppTable.module.scss";
 import { AppPagination } from "@/shared/ui/AppPagination";
 import { AppTableSkeleton } from "@/shared/ui/AppTableSkeleton";
