@@ -6,6 +6,7 @@ import { useState } from "react";
 import { CreateUserForm } from "@/entities/Users";
 import { useManageModal } from "@/shared/lib/hooks/useManageModal.ts";
 import styles from "./s.module.scss";
+import { AppFilterInput } from "@/shared/ui/AppFilterInput";
 
 export const UsersTable = () => {
   const { userList, isLoading } = useGetUserList();
@@ -28,6 +29,10 @@ export const UsersTable = () => {
           userId={userId}
         />
       )}
+      <AppFilterInput
+        placeholder={"Search by email or other user fields"}
+        searchParam={"search"}
+      />
       <AppTable
         headerData={userHeaderData}
         isLoading={isLoading}

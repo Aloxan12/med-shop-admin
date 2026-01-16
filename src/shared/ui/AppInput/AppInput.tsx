@@ -2,7 +2,7 @@ import React, { type ChangeEvent, useState } from "react";
 import cls from "./AppInput.module.scss";
 import { classNames } from "@/shared/lib/classNames";
 import { inputMaskFn } from "./helpers/inputMaskFn.ts";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Search } from "lucide-react";
 
 export type InputMaskType = "float" | "integer" | "negativeInteger";
 
@@ -72,6 +72,9 @@ export const AppInput = ({
           <div className={cls.iconButton} onClick={toggleShow}>
             {showPassword ? <EyeOff size={"15"} /> : <Eye size={"15"} />}
           </div>
+        )}
+        {type === "search" && (
+          <div className={cls.iconButton}>{<Search size={"15"} />}</div>
         )}
       </div>
       {error && <div className={cls.errorBlock}>{error}</div>}
