@@ -1,6 +1,7 @@
 import { AppInput } from "@/shared/ui/AppInput";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useDebounce } from "@/shared/lib/hooks/useDebounce.ts";
 
 type PropsType = {
   placeholder?: string;
@@ -11,14 +12,16 @@ export const AppFilterInput = ({ placeholder, searchParam }: PropsType) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState("");
 
+  const debounceValue = useDebounce(value);
+
   useEffect(() => {
-    if (value) {
+    if (debounceValue) {
       searchParams.set(searchParam, value);
     } else {
       searchParams.delete(searchParam);
     }
     setSearchParams(searchParams.toString());
-  }, [value]);
+  }, [debounceValue]);
 
   return (
     <>
