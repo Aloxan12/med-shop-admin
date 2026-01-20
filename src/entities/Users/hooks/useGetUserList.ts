@@ -7,7 +7,6 @@ export const useGetUserList = () => {
     paramsList: ["search"],
     withPagination: true,
   });
-  console.log(params);
   const { data: userList, isLoading } = useUserList(
     { ...params },
     { skip: !params },

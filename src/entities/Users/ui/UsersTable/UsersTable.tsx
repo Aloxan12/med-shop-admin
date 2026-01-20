@@ -7,11 +7,18 @@ import { CreateUserForm } from "@/entities/Users";
 import { useManageModal } from "@/shared/lib/hooks/useManageModal.ts";
 import styles from "./s.module.scss";
 import { AppFilterInput } from "@/shared/ui/AppFilterInput";
+import { useSearchParams } from "react-router-dom";
 
 export const UsersTable = () => {
   const { userList, isLoading } = useGetUserList();
   const [userId, setUserId] = useState<string>("");
   const { open, openModal, closeModal } = useManageModal();
+  const [searchParams] = useSearchParams();
+  const searchValue = searchParams.get("search") ?? ""; // null → ''
+  const hasEmptySearchParam = searchParams.has("search") && searchValue !== "";
+
+  const shouldHideTable =
+    !isLoading && userList?.results?.length === 0 && hasEmptySearchParam;
   const handleEditClick = (id: string) => {
     setUserId(id);
     openModal();
@@ -20,6 +27,8 @@ export const UsersTable = () => {
     closeModal();
     setUserId("");
   };
+  console.log(hasEmptySearchParam);
+
   return (
     <>
       {userId && open && (
@@ -33,26 +42,31 @@ export const UsersTable = () => {
         placeholder={"Search by email or other user fields"}
         searchParam={"search"}
       />
-      <AppTable
-        headerData={userHeaderData}
-        isLoading={isLoading}
-        data={userList}
-        tableDataSelectors={[
-          { name: "id" },
-          { name: "email" },
-          { name: "role" },
-          {
-            renderItem: (item) => (
-              <Pencil
-                size={"20"}
-                color={"blue"}
-                className={styles.cursor}
-                onClick={() => handleEditClick(item.id)}
-              />
-            ),
-          },
-        ]}
-      />
+      {!shouldHideTable && (
+        <AppTable
+          headerData={userHeaderData}
+          isLoading={isLoading}
+          data={userList}
+          tableDataSelectors={[
+            { name: "id" },
+            { name: "email" },
+            { name: "role" },
+            {
+              renderItem: (item) => (
+                <Pencil
+                  size={"20"}
+                  color={"blue"}
+                  className={styles.cursor}
+                  onClick={() => handleEditClick(item.id)}
+                />
+              ),
+            },
+          ]}
+        />
+      )}
+      {shouldHideTable && (
+        <div>Нет результатов по пустому поиску. Введите текст.</div> // Опционально: плейсхолдер
+      )}
     </>
   );
 };
