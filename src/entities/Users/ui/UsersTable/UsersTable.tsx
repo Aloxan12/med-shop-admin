@@ -27,7 +27,6 @@ export const UsersTable = () => {
     closeModal();
     setUserId("");
   };
-  console.log(hasEmptySearchParam);
 
   return (
     <>
