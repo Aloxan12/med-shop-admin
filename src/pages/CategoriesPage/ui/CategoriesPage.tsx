@@ -1,9 +1,10 @@
-import { Categoriesheader } from "@/entities/Categories";
+import { Categoriesheader, CategoriesTable } from "@/entities/Categories";
 
 const CategoriesPage = () => {
   return (
     <div>
       <Categoriesheader />
+      <CategoriesTable />
     </div>
   );
 };
