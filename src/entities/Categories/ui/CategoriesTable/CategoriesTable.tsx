@@ -1,7 +1,7 @@
 // import style from "./s.module.scss";
 import { AppTable } from "@/shared/ui/AppTable";
-import { Pencil } from "lucide-react";
-import styles from "@/entities/Users/ui/UsersTable/s.module.scss";
+// import { Pencil } from "lucide-react";
+// import styles from "@/entities/Users/ui/UsersTable/s.module.scss";
 import { categoriesHeaderData } from "@/entities/Categories/model/data.ts";
 
 const data = {
@@ -24,16 +24,16 @@ export const CategoriesTable = () => {
           { name: "id" },
           { name: "name" },
           { name: "description" },
-          {
-            renderItem: (item) => (
-              <Pencil
-                size={"20"}
-                color={"blue"}
-                className={styles.cursor}
-                // onClick={() => handleEditClick(item.id)}
-              />
-            ),
-          },
+          // {
+          //   renderItem: (item) => (
+          //     <Pencil
+          //       size={"20"}
+          //       color={"blue"}
+          //       className={styles.cursor}
+          //       // onClick={() => handleEditClick(item.id)}
+          //     />
+          //   ),
+          // },
         ]}
       />
     </>
