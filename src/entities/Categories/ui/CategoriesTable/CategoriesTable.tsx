@@ -1,25 +1,18 @@
 // import style from "./s.module.scss";
 import { AppTable } from "@/shared/ui/AppTable";
-// import { Pencil } from "lucide-react";
-// import styles from "@/entities/Users/ui/UsersTable/s.module.scss";
 import { categoriesHeaderData } from "@/entities/Categories/model/data.ts";
-
-const data = {
-  count: 5,
-  results: [
-    { id: 1, name: "Category 1", description: "Description 1" },
-    { id: 2, name: "Category 2", description: "Description 2" },
-  ],
-};
+import { useGetCategoriesList } from "@/entities/Categories/hools/useGetCatogiesList.ts";
 
 export const CategoriesTable = () => {
+  const { categoriesList, isLoading } = useGetCategoriesList();
+  console.log(categoriesList);
   return (
     <>
       {" "}
       <AppTable
         headerData={categoriesHeaderData}
-        // isLoading={isLoading}
-        data={data}
+        isLoading={isLoading}
+        data={categoriesList}
         tableDataSelectors={[
           { name: "id" },
           { name: "name" },
