@@ -5,7 +5,6 @@ import { useGetCategoriesList } from "@/entities/Categories/hools/useGetCatogies
 
 export const CategoriesTable = () => {
   const { categoriesList, isLoading } = useGetCategoriesList();
-  console.log(categoriesList);
   return (
     <>
       {" "}

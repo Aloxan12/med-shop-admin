@@ -18,3 +18,8 @@ export interface GetCategoriesListResponse {
   limit: number;
   results: CategoryListDto[];
 }
+
+export interface CreateCategoryRequest {
+  name: string;
+  description: string;
+}
