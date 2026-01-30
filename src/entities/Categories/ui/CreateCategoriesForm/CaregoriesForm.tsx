@@ -9,19 +9,27 @@ import {} from "@/entities/Users/ui/CreateUserForm/shema.ts";
 import { createCategoryShema } from "@/entities/Categories/ui/CreateCategoriesForm/shema.ts";
 import { useCreateCategory } from "@/entities/Categories/api/useCraeteCategory.ts";
 import { toast } from "react-hot-toast";
+import { useEditCategory } from "@/entities/Categories/api/useEditCategory.ts";
+import { useCategoryById } from "@/entities/Categories/api/useCategoryById.ts";
+import { useEffect } from "react";
+import { AppLoader } from "@/shared/ui/AppLoader";
 
 type PropsType = {
   closeModal: () => void;
-  // userId?: string;
+  categoryId?: string;
   modalTitle: string;
 };
-export const CategoriesForm = ({ closeModal, modalTitle }: PropsType) => {
+export const CategoriesForm = ({
+  closeModal,
+  modalTitle,
+  categoryId,
+}: PropsType) => {
   const {
     control,
     handleSubmit,
     reset,
     // setError,
-    // setValue,
+    setValue,
     // formState: { errors },
   } = useForm({
     resolver: zodResolver(createCategoryShema),
@@ -31,16 +39,36 @@ export const CategoriesForm = ({ closeModal, modalTitle }: PropsType) => {
     },
   });
   const { mutate: createCategory } = useCreateCategory();
+  const { mutate: editCategory } = useEditCategory();
+  const { data: editingCategory, isLoading: isCategoryLoading } =
+    useCategoryById(categoryId);
+  useCreateCategory();
   const handleSuccess = (message: string) => {
     toast.success(message);
     reset();
     closeModal();
   };
+  useEffect(() => {
+    if (editingCategory) {
+      setValue("name", editingCategory.name);
+      setValue("description", editingCategory.description);
+    }
+  }, [editingCategory, setValue]);
   const onSubmit = (data: any) => {
-    createCategory(data, {
-      onSuccess: () => handleSuccess("Категория создана"),
-    });
+    if (categoryId) {
+      editCategory(
+        { id: categoryId, data: data },
+        { onSuccess: () => handleSuccess("Категория создана") },
+      );
+    } else {
+      createCategory(data, {
+        onSuccess: () => handleSuccess("Категория создана"),
+      });
+    }
   };
+  if (isCategoryLoading) {
+    return <AppLoader />;
+  }
   return (
     <AppModal title={modalTitle} onClose={closeModal}>
       <form onSubmit={handleSubmit(onSubmit)}>
