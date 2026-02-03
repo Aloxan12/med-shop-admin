@@ -4,26 +4,38 @@ import { categoriesHeaderData } from "@/entities/Categories/model/data.ts";
 import { useGetCategoriesList } from "@/entities/Categories/hools/useGetCatogiesList.ts";
 import { BrushCleaning, Pencil } from "lucide-react";
 import { useState } from "react";
-import { useManageModal } from "@/shared/lib/hooks/useManageModal.ts";
-import { CategoriesForm } from "@/entities/Categories";
+import { CategoriesForm, RemoveCategoryModal } from "@/entities/Categories";
+import type { CategoryListDto } from "../../model/types.ts";
 
 export const CategoriesTable = () => {
   const { categoriesList, isLoading } = useGetCategoriesList();
   const [categoryId, setCategoryId] = useState<string>("");
-  const { open, openModal, closeModal } = useManageModal();
+  const [removingCategory, setRemovingCategory] =
+    useState<CategoryListDto | null>(null);
   const handleEditClick = (id: string) => {
     setCategoryId(id);
-    openModal();
   };
-  const handleClose = () => {
-    closeModal();
+  const handleCloseEditModal = () => {
     setCategoryId("");
   };
+  const handleCloseRemoveModal = () => {
+    setRemovingCategory(null);
+  };
+  const handleremoveClick = (item: CategoryListDto) => {
+    setRemovingCategory(item);
+  };
+
   return (
     <>
-      {categoryId && open && (
+      {removingCategory && (
+        <RemoveCategoryModal
+          closeModal={handleCloseRemoveModal}
+          category={removingCategory}
+        />
+      )}
+      {categoryId && (
         <CategoriesForm
-          closeModal={handleClose}
+          closeModal={handleCloseEditModal}
           modalTitle={"Редактировать пользователя"}
           categoryId={categoryId}
         />
@@ -49,7 +61,7 @@ export const CategoriesTable = () => {
                   size={"20"}
                   color={"red"}
                   className={s.cursor}
-                  onClick={() => handleEditClick(item.id)}
+                  onClick={() => handleremoveClick(item)}
                 />
               </div>
             ),
