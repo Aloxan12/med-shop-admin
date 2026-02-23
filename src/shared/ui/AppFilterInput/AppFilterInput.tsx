@@ -10,7 +10,8 @@ type PropsType = {
 
 export const AppFilterInput = ({ placeholder, searchParam }: PropsType) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState("");
+  // Инициализируем значение из URL, если оно там есть
+  const [value, setValue] = useState(searchParams.get(searchParam) || "");
 
   const debounceValue = useDebounce(value);
 
@@ -24,13 +25,11 @@ export const AppFilterInput = ({ placeholder, searchParam }: PropsType) => {
   }, [debounceValue]);
 
   return (
-    <>
-      <AppInput
-        placeholder={placeholder}
-        type={"search"}
-        value={value}
-        onChange={setValue}
-      />
-    </>
+    <AppInput
+      placeholder={placeholder}
+      type={"search"}
+      value={value}
+      onChange={setValue}
+    />
   );
 };
