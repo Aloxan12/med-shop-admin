@@ -9,11 +9,11 @@ type PropsType = {
   category: CategoryListDto;
 };
 export const RemoveCategoryModal = ({ closeModal, category }: PropsType) => {
-  const { mutate: removeCategory } = useRemoveCategory();
+  const { mutate: removeCategory, isPending } = useRemoveCategory();
 
-  const removeCategoryHandler = () => {
+  const removeCategoryHandler = (onClose: () => void) => () => {
     removeCategory(category.id);
-    closeModal();
+    onClose();
   };
 
   return (
@@ -24,20 +24,23 @@ export const RemoveCategoryModal = ({ closeModal, category }: PropsType) => {
         `Вы действительно хотите удалить категорию ${category.name}?`
       }
     >
-      <div className={s.buttonsContainer}>
-        <AppButton
-          fullWidth={true}
-          variant={"secondary"}
-          text={"Да"}
-          onClick={removeCategoryHandler}
-        />
-        <AppButton
-          fullWidth={true}
-          variant={"primary"}
-          onClick={closeModal}
-          text={"Нет"}
-        />
-      </div>
+      {(onModalClose) => (
+        <div className={s.buttonsContainer}>
+          <AppButton
+            fullWidth={true}
+            variant={"secondary"}
+            text={"Да"}
+            disabled={isPending}
+            onClick={removeCategoryHandler(onModalClose)}
+          />
+          <AppButton
+            fullWidth={true}
+            variant={"primary"}
+            onClick={onModalClose}
+            text={"Нет"}
+          />
+        </div>
+      )}
     </AppModal>
   );
 };

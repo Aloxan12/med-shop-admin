@@ -21,7 +21,7 @@ type ModalWidth =
 interface AppModalProps {
   className?: string;
   classNameContent?: string;
-  children?: ReactNode;
+  children?: ReactNode | ((onClose: () => void) => ReactNode);
   // isOpen?: boolean;
   onClose?: () => void;
   title?: string;
@@ -79,7 +79,9 @@ export const AppModal = ({
               </span>
             </div>
           )}
-          <div className={cls.modalContentChildren}>{children}</div>
+          <div className={cls.modalContentChildren}>
+            {typeof children === "function" ? children(closeHandler) : children}
+          </div>
         </div>
       </div>
     </AppPortal>
