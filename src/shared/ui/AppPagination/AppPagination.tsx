@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import cls from "./AppPagination.module.css";
@@ -48,9 +48,9 @@ export const AppPagination = ({
 }: IAppPagination) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page");
-  const [currentPage, setCurrentPage] = useState<number>(
-    page ? Number(page) : 1,
-  );
+  const currentPage = page ? Number(page) : 1;
+  const safeCurrentPage =
+    Number.isFinite(currentPage) && currentPage > 0 ? currentPage : 1;
 
   // const searchParamsWithoutPagination = searchParams
   //   .toString()
@@ -64,20 +64,20 @@ export const AppPagination = ({
   const pageCount = Math.ceil(totalCount / limit);
   const pages: (number | string)[] = [];
 
-  createPages(pages, pageCount, currentPage);
+  createPages(pages, pageCount, safeCurrentPage);
 
   useEffect(() => {
-    if (currentPage === 1) {
-      searchParams.set("limit", `${limit}`);
-      searchParams.set("page", "1");
-      setSearchParams(searchParams.toString());
-    } else {
-      searchParams.set("limit", `${limit}`);
-      searchParams.set("page", `${currentPage}`);
-      setSearchParams(searchParams.toString());
+    const nextParams = new URLSearchParams(searchParams);
+    const lastPage = pageCount > 0 ? pageCount : 1;
+    const boundedPage = safeCurrentPage > lastPage ? lastPage : safeCurrentPage;
+
+    nextParams.set("limit", `${limit}`);
+    nextParams.set("page", `${boundedPage}`);
+
+    if (nextParams.toString() !== searchParams.toString()) {
+      setSearchParams(nextParams.toString());
     }
-    // eslint-disable-next-line
-    }, [currentPage, limit]);
+  }, [limit, pageCount, safeCurrentPage, searchParams, setSearchParams]);
 
   // useEffect(() => {
   //   if (!!page && Number(page) !== currentPage) {
@@ -91,9 +91,16 @@ export const AppPagination = ({
         return (
           <div
             key={`pagination-page-${index}`}
-            className={`${cls.PaginationPage} ${currentPage === page ? cls.CurrentPage : ""}`}
+            className={`${cls.PaginationPage} ${safeCurrentPage === page ? cls.CurrentPage : ""}`}
             onClick={
-              typeof page === "number" ? () => setCurrentPage(page) : undefined
+              typeof page === "number"
+                ? () => {
+                    const nextParams = new URLSearchParams(searchParams);
+                    nextParams.set("limit", `${limit}`);
+                    nextParams.set("page", `${page}`);
+                    setSearchParams(nextParams.toString());
+                  }
+                : undefined
             }
           >
             {page}

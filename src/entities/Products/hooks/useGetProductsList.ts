@@ -10,18 +10,15 @@ const parseNumber = (value?: string | number) => {
 
 export const useGetProductsList = () => {
   const rawParams = useParamsControl<Record<string, string | undefined>>({
-    paramsList: ["search", "sort", "priceFrom", "priceTo"],
+    paramsList: ["search"],
     withPagination: true,
   });
   const safeParams = rawParams || {};
 
   const params: GetProductsListRequest = {
     search: safeParams.search,
-    sort: safeParams.sort as GetProductsListRequest["sort"],
     page: parseNumber(safeParams.page),
     limit: parseNumber(safeParams.limit),
-    priceFrom: parseNumber(safeParams.priceFrom),
-    priceTo: parseNumber(safeParams.priceTo),
   };
 
   const { data: productsList, isLoading } = useProductsList(params, {
