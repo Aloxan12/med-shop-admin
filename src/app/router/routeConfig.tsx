@@ -3,6 +3,7 @@ import { MainPage } from "@/pages/MainPage";
 import type { IRouteObjectExtended } from "./types.ts";
 import { UsersPage } from "@/pages/UsersPage";
 import { CategoriesPage } from "@/pages/CategoriesPage";
+import { ProductsPage } from "@/pages/ProductsPage";
 
 export const routeConfig: IRouteObjectExtended[] = [
   {
@@ -15,7 +16,7 @@ export const routeConfig: IRouteObjectExtended[] = [
   },
   {
     path: allRouterPaths.products,
-    element: <div>products page</div>,
+    element: <ProductsPage />,
   },
   {
     path: allRouterPaths.categories,

@@ -1,0 +1,36 @@
+.cursor {
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.filtersRow {
+  margin: 12px 0;
+}
+
+.filterInput {
+  min-width: 180px;
+}
+
+.photoCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.photoThumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.photoLink {
+  color: #2563eb;
+  text-decoration: underline;
+  font-size: 12px;
+}

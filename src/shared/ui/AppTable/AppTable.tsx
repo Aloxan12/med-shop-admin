@@ -57,7 +57,7 @@ export const AppTable = <T, TKey extends keyof T>({
 
   useEffect(() => {
     if (!data) return;
-    setTableData(data.results);
+    setTableData(Array.isArray(data.results) ? data.results : []);
   }, [data]);
 
   if (!data && isLoading) {
@@ -90,7 +90,7 @@ export const AppTable = <T, TKey extends keyof T>({
           </tr>
         </thead>
         <tbody>
-          {tableData.map((item, itemIndex) => {
+          {(tableData || []).map((item, itemIndex) => {
             return (
               <tr key={`table-row-${itemIndex}`}>
                 {tableDataSelectors.map(
