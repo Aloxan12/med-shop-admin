@@ -39,6 +39,40 @@ export const ProductsTable = () => {
 
   return (
     <>
+      {/*<AppFlex gap={"12"} wrap className={s.filtersRow}>*/}
+      {/*  <AppDropdown*/}
+      {/*    placeholder={"Сортировка"}*/}
+      {/*    propsName={"label"}*/}
+      {/*    propsValue={"value"}*/}
+      {/*    value={sortOption}*/}
+      {/*    options={productSortOptions}*/}
+      {/*    onSelect={handleSortSelect}*/}
+      {/*  />*/}
+
+      {/*  <div className={s.filterInput}>*/}
+      {/*    <AppInput*/}
+      {/*      value={priceFrom}*/}
+      {/*      onChange={setPriceFrom}*/}
+      {/*      placeholder={"Цена от"}*/}
+      {/*      mask={"float"}*/}
+      {/*    />*/}
+      {/*  </div>*/}
+
+      {/*  <div className={s.filterInput}>*/}
+      {/*    <AppInput*/}
+      {/*      value={priceTo}*/}
+      {/*      onChange={setPriceTo}*/}
+      {/*      placeholder={"Цена до"}*/}
+      {/*      mask={"float"}*/}
+      {/*    />*/}
+      {/*  </div>*/}
+
+      {/*  <div>*/}
+      {/*    <button type="button" className={s.cursor} onClick={clearAllFilters}>*/}
+      {/*      Сбросить фильтры*/}
+      {/*    </button>*/}
+      {/*  </div>*/}
+      {/*</AppFlex>*/}
       {productId && (
         <EditProductForm
           closeModal={() => setProductId("")}
