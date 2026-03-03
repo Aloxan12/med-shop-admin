@@ -16,6 +16,7 @@ export const productsHeaderData = [
 ];
 
 export const productSortOptions: SortOption[] = [
+  { value: "", label: "Без сортировки" },
   { value: "createdAt", label: "Сначала старые" },
   { value: "-createdAt", label: "Сначала новые" },
   { value: "price", label: "Цена по возрастанию" },

@@ -6,16 +6,24 @@ import { AppTable } from "@/shared/ui/AppTable";
 import { AppFilterInput } from "@/shared/ui/AppFilterInput";
 
 import { useGetProductsList } from "@/entities/Products/hooks/useGetProductsList.ts";
-import { productsHeaderData } from "@/entities/Products/model/data.ts";
-import type { ProductListDto } from "@/entities/Products/model/types.ts";
+import {
+  productsHeaderData,
+  productSortOptions,
+} from "@/entities/Products/model/data.ts";
+import type {
+  ProductListDto,
+  SortOption,
+} from "@/entities/Products/model/types.ts";
 import { EditProductForm } from "@/entities/Products/ui/EditProductForm/EditProductForm.tsx";
 import { RemoveProductModal } from "@/entities/Products/ui/RemoveProductModal/RemoveProductModal.tsx";
 
 import s from "./s.module.scss";
+import { AppDropdown } from "@/shared/ui/AppDropDown/AppDropDown.tsx";
+import { AppFlex } from "@/shared/ui/AppFlex";
 
 export const ProductsTable = () => {
   const { productsList, isLoading } = useGetProductsList();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [productId, setProductId] = useState<string>("");
   const [removingProduct, setRemovingProduct] = useState<ProductListDto | null>(
@@ -27,6 +35,20 @@ export const ProductsTable = () => {
 
   const shouldHideTable =
     !isLoading && productsList?.results?.length === 0 && hasSearchParam;
+  const sortValueFromUrl = searchParams.get("sort"); // строка или null
+
+  const selectedSortOption =
+    productSortOptions.find((o) => o.value === sortValueFromUrl) ?? null;
+  const handleSortSelect = (option: SortOption) => {
+    const nextParams = new URLSearchParams(searchParams);
+    if (option.value) {
+      nextParams.set("sort", option.value);
+    } else {
+      nextParams.delete("sort");
+    }
+    nextParams.set("page", "1");
+    setSearchParams(nextParams.toString());
+  };
 
   const preparedTableData = useMemo(() => {
     if (!productsList) return undefined;
@@ -39,40 +61,6 @@ export const ProductsTable = () => {
 
   return (
     <>
-      {/*<AppFlex gap={"12"} wrap className={s.filtersRow}>*/}
-      {/*  <AppDropdown*/}
-      {/*    placeholder={"Сортировка"}*/}
-      {/*    propsName={"label"}*/}
-      {/*    propsValue={"value"}*/}
-      {/*    value={sortOption}*/}
-      {/*    options={productSortOptions}*/}
-      {/*    onSelect={handleSortSelect}*/}
-      {/*  />*/}
-
-      {/*  <div className={s.filterInput}>*/}
-      {/*    <AppInput*/}
-      {/*      value={priceFrom}*/}
-      {/*      onChange={setPriceFrom}*/}
-      {/*      placeholder={"Цена от"}*/}
-      {/*      mask={"float"}*/}
-      {/*    />*/}
-      {/*  </div>*/}
-
-      {/*  <div className={s.filterInput}>*/}
-      {/*    <AppInput*/}
-      {/*      value={priceTo}*/}
-      {/*      onChange={setPriceTo}*/}
-      {/*      placeholder={"Цена до"}*/}
-      {/*      mask={"float"}*/}
-      {/*    />*/}
-      {/*  </div>*/}
-
-      {/*  <div>*/}
-      {/*    <button type="button" className={s.cursor} onClick={clearAllFilters}>*/}
-      {/*      Сбросить фильтры*/}
-      {/*    </button>*/}
-      {/*  </div>*/}
-      {/*</AppFlex>*/}
       {productId && (
         <EditProductForm
           closeModal={() => setProductId("")}
@@ -91,6 +79,40 @@ export const ProductsTable = () => {
         placeholder={"Search by product name"}
         searchParam={"search"}
       />
+      <AppFlex gap={"12"} wrap className={s.filtersRow}>
+        <AppDropdown
+          placeholder={"Сортировка"}
+          propsName={"label"}
+          propsValue={"value"}
+          value={selectedSortOption}
+          options={productSortOptions}
+          onSelect={handleSortSelect}
+        />
+
+        {/*  <div className={s.filterInput}>*/}
+        {/*    <AppInput*/}
+        {/*      value={priceFrom}*/}
+        {/*      onChange={setPriceFrom}*/}
+        {/*      placeholder={"Цена от"}*/}
+        {/*      mask={"float"}*/}
+        {/*    />*/}
+        {/*  </div>*/}
+
+        {/*  <div className={s.filterInput}>*/}
+        {/*    <AppInput*/}
+        {/*      value={priceTo}*/}
+        {/*      onChange={setPriceTo}*/}
+        {/*      placeholder={"Цена до"}*/}
+        {/*      mask={"float"}*/}
+        {/*    />*/}
+        {/*  </div>*/}
+
+        {/*  <div>*/}
+        {/*    <button type="button" className={s.cursor} onClick={clearAllFilters}>*/}
+        {/*      Сбросить фильтры*/}
+        {/*    </button>*/}
+        {/*  </div>*/}
+      </AppFlex>
 
       {!shouldHideTable && (
         <AppTable

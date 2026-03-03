@@ -19,6 +19,7 @@ export interface ProductListDto {
 }
 
 export type ProductSortValue =
+  | ""
   | "price"
   | "-price"
   | "popularity"

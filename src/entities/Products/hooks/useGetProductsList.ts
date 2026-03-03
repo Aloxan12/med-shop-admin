@@ -10,7 +10,7 @@ const parseNumber = (value?: string | number) => {
 
 export const useGetProductsList = () => {
   const rawParams = useParamsControl<Record<string, string | undefined>>({
-    paramsList: ["search"],
+    paramsList: ["search", "sort"],
     withPagination: true,
   });
   const safeParams = rawParams || {};
@@ -19,6 +19,7 @@ export const useGetProductsList = () => {
     search: safeParams.search,
     page: parseNumber(safeParams.page),
     limit: parseNumber(safeParams.limit),
+    sort: safeParams.sort as GetProductsListRequest["sort"],
   };
 
   const { data: productsList, isLoading } = useProductsList(params, {
