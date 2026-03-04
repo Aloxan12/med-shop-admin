@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename="/med-shop-admin">
+    <BrowserRouter>
       <QueryProvider>
         <AppRouter />
         <Toaster position="top-right" />
