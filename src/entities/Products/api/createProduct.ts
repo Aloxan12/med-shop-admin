@@ -11,7 +11,11 @@ export const createProduct = async (
 
   Object.entries(data).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
-      formData.append(key, String(value));
+      if (value instanceof File) {
+        formData.append(key, value);
+      } else {
+        formData.append(key, String(value));
+      }
     }
   });
 

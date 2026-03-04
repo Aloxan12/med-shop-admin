@@ -11,13 +11,17 @@ export const createProductSchema = z.object({
     .trim()
     .min(1, { message: "Цена обязательна" })
     .refine((value) => !Number.isNaN(Number(value)), numberFieldMessage),
-  photo: z.string().trim().min(1, { message: "Фото обязательно" }),
+  // принимаем File из input type="file"
+  photo: z
+    .any()
+    .refine((file) => file instanceof File, { message: "Фото обязательно" }),
   stock: z
     .string()
     .trim()
     .optional()
     .refine(
-      (value) => value === undefined || value === "" || !Number.isNaN(Number(value)),
+      (value) =>
+        value === undefined || value === "" || !Number.isNaN(Number(value)),
       integerFieldMessage,
     )
     .refine(
@@ -30,7 +34,8 @@ export const createProductSchema = z.object({
     .trim()
     .optional()
     .refine(
-      (value) => value === undefined || value === "" || !Number.isNaN(Number(value)),
+      (value) =>
+        value === undefined || value === "" || !Number.isNaN(Number(value)),
       integerFieldMessage,
     )
     .refine(

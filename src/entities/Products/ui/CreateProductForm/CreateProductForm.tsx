@@ -40,7 +40,7 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
       name: "",
       description: "",
       price: "",
-      photo: "",
+      photo: undefined as unknown as File,
       stock: "",
       popularity: "",
       isActive: "true",
@@ -62,7 +62,7 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
     const payload: CreateProductRequest = {
       name: data.name,
       price: Number(data.price),
-      photo: data.photo,
+      photo: data.photo as unknown as File,
       description: data.description || undefined,
       stock: data.stock ? Number(data.stock) : undefined,
       popularity: data.popularity ? Number(data.popularity) : undefined,
@@ -113,8 +113,8 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
           <ControlledAppInput
             control={control}
             name="photo"
-            placeholder={"Введите адрес фото"}
-            type="text"
+            placeholder={"Добавьте фото"}
+            type="file"
             fullWidth
           />
           <ControlledAppInput

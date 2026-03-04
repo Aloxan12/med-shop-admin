@@ -50,6 +50,18 @@ export const ProductsTable = () => {
     setSearchParams(nextParams.toString());
   };
 
+  const clearAllFilters = () => {
+    const nextParams = new URLSearchParams(searchParams);
+
+    nextParams.delete("search");
+    nextParams.delete("sort");
+    nextParams.delete("priceFrom");
+    nextParams.delete("priceTo");
+    nextParams.set("page", "1");
+
+    setSearchParams(nextParams.toString());
+  };
+
   const preparedTableData = useMemo(() => {
     if (!productsList) return undefined;
 
@@ -88,30 +100,12 @@ export const ProductsTable = () => {
           options={productSortOptions}
           onSelect={handleSortSelect}
         />
+        <AppFilterInput placeholder={"Price from"} searchParam={"priceFrom"} />
+        <AppFilterInput placeholder={"Price to"} searchParam={"priceTo"} />
 
-        {/*  <div className={s.filterInput}>*/}
-        {/*    <AppInput*/}
-        {/*      value={priceFrom}*/}
-        {/*      onChange={setPriceFrom}*/}
-        {/*      placeholder={"Цена от"}*/}
-        {/*      mask={"float"}*/}
-        {/*    />*/}
-        {/*  </div>*/}
-
-        {/*  <div className={s.filterInput}>*/}
-        {/*    <AppInput*/}
-        {/*      value={priceTo}*/}
-        {/*      onChange={setPriceTo}*/}
-        {/*      placeholder={"Цена до"}*/}
-        {/*      mask={"float"}*/}
-        {/*    />*/}
-        {/*  </div>*/}
-
-        {/*  <div>*/}
-        {/*    <button type="button" className={s.cursor} onClick={clearAllFilters}>*/}
-        {/*      Сбросить фильтры*/}
-        {/*    </button>*/}
-        {/*  </div>*/}
+        <button type={"button"} className={s.cursor} onClick={clearAllFilters}>
+          Сбросить фильтры
+        </button>
       </AppFlex>
 
       {!shouldHideTable && (
