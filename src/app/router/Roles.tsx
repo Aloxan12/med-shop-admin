@@ -4,7 +4,7 @@ import { MainLayout } from "@/widgets/MainLayout";
 import { routeConfig } from "./routeConfig";
 import { Suspense } from "react";
 import { AppLoader } from "@/shared/ui/AppLoader/AppLoader";
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 
 const routeConfigFn = (roles: string) =>
   routeConfig
@@ -39,6 +39,10 @@ const routeConfigFn = (roles: string) =>
 
 export const RoutesByRole = ({ roles }: IRoutesByRole) => {
   const roleRoutes: IRouteObjectExtended[] = routeConfigFn(roles);
+  const [searchParams] = useSearchParams();
+
+  const chatId = searchParams.get("chat_id");
+  const chatIdQuery = chatId ? `?chat_id=${chatId}` : "";
 
   const resultRole: IRouteObjectExtended[] = [
     {
@@ -52,7 +56,7 @@ export const RoutesByRole = ({ roles }: IRoutesByRole) => {
     },
     {
       path: "*",
-      element: <Navigate to="/" replace />,
+      element: <Navigate to={`/${chatIdQuery}`} replace />,
     },
   ];
   return resultRole;
