@@ -3,7 +3,7 @@ import { Header } from "@/widgets/Header/Header.tsx";
 import { Sidebar } from "@/widgets/Sidebar";
 import { Outlet } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
-import { useAuthStore } from "@/entities/Login";
+import { useAuthStore, useTelegramAuth } from "@/entities/Login";
 import { useUserDetail } from "@/entities/Users/api/useUser.ts";
 
 export const MainLayout = () => {
@@ -21,6 +21,8 @@ export const MainLayout = () => {
       setUser(data);
     }
   }, [user, token, data, setUser]);
+
+  useTelegramAuth();
 
   return (
     <main>

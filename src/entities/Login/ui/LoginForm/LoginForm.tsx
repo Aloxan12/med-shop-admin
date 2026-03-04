@@ -7,6 +7,7 @@ import { ControlledAppInput } from "@/shared/ui/AppControlledInput";
 import { useForm } from "react-hook-form";
 import { emailRule, passwordRule } from "../../model/validate.ts";
 import { defaultLoginData } from "../../model/const.ts";
+import { useSearchParams } from "react-router-dom";
 
 interface FormValues {
   email: string;
@@ -20,12 +21,17 @@ export const LoginForm = () => {
 
   const { mutate: login } = useLogin();
 
+  const [searchParams] = useSearchParams();
+
+  const chatId = searchParams.get("chat_id");
+  const chatIdQuery = chatId ? `&chat_id=${chatId}` : "";
+
   const onLoginHandler = handleSubmit((data) => login(data));
 
   const handleGoogleLogin = () =>
     (window.location.href =
       import.meta.env.VITE_API_URL +
-      `/auth/google?return_url=${encodeURIComponent(import.meta.env.VITE_BASE_URL)}`);
+      `/auth/google?return_url=${encodeURIComponent(import.meta.env.VITE_BASE_URL)}${chatIdQuery}`);
   return (
     <AppFlex
       fullWidth

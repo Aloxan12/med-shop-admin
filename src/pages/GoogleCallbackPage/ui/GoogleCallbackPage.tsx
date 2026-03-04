@@ -11,12 +11,15 @@ const GoogleCallbackPage = () => {
     const params = new URLSearchParams(window.location.search);
     const accessToken = params.get("accessToken");
     const refreshToken = params.get("refreshToken");
+    const chatId = params.get("chat_id");
+    const chatIdQuery = chatId ? `?chat_id=${chatId}` : "";
+
     const user: User | null = params.get("user")
       ? JSON.parse(params.get("user")!)
       : null;
     if (accessToken && refreshToken && user) {
       setToken(accessToken, refreshToken, user);
-      navigate("/");
+      navigate(`/${chatIdQuery}`);
     }
   }, [navigate, setToken]);
 
