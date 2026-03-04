@@ -1,5 +1,6 @@
 export interface TelegramDto {
   chatId: string;
+  userId: string;
 }
 
 export interface LoginDto {

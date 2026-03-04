@@ -6,15 +6,15 @@ import { telegramLogin } from "../api/telegramLogin.ts";
 export const useTelegramAuth = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const chatId = searchParams.get("chat_id");
-  const token = useAuthStore((state) => state.token);
+  const { token, user } = useAuthStore((state) => state);
 
   useEffect(() => {
-    if (chatId && token) {
-      telegramLogin({ chatId }).finally(() => {
+    if (chatId && token && user) {
+      telegramLogin({ chatId, userId: user.id }).finally(() => {
         searchParams.delete("chat_id");
         setSearchParams(searchParams.toString());
       });
     }
     // eslint-disable-next-line
-    }, [chatId, token]);
+    }, [chatId, token, user]);
 };
