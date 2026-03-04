@@ -1,3 +1,7 @@
+export interface TelegramDto {
+  chatId: string;
+}
+
 export interface LoginDto {
   email: string;
   password: string;
