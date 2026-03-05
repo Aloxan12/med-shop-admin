@@ -22,7 +22,8 @@ export const AppFilterInput = ({ placeholder, searchParam }: PropsType) => {
       searchParams.delete(searchParam);
     }
     setSearchParams(searchParams.toString());
-  }, [debounceValue]);
+    // eslint-disable-next-line
+    }, [debounceValue]);
 
   return (
     <AppInput

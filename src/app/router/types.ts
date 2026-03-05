@@ -2,6 +2,7 @@ import type { IndexRouteObject, NonIndexRouteObject } from "react-router-dom";
 
 export interface IRoutesByRole {
   roles: string;
+  chatIdQuery?: string;
 }
 
 interface RouteObjectExtendedBase {

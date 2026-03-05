@@ -17,7 +17,8 @@ export const createProductSchema = z.object({
     .trim()
     .optional()
     .refine(
-      (value) => value === undefined || value === "" || !Number.isNaN(Number(value)),
+      (value) =>
+        value === undefined || value === "" || !Number.isNaN(Number(value)),
       integerFieldMessage,
     )
     .refine(
@@ -30,7 +31,8 @@ export const createProductSchema = z.object({
     .trim()
     .optional()
     .refine(
-      (value) => value === undefined || value === "" || !Number.isNaN(Number(value)),
+      (value) =>
+        value === undefined || value === "" || !Number.isNaN(Number(value)),
       integerFieldMessage,
     )
     .refine(
