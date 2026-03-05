@@ -67,7 +67,7 @@ export interface UpdateProductRequest {
 export interface CreateProductRequest {
   name: string;
   price: number;
-  photo: string;
+  photo: File | string;
   description?: string;
   stock?: number;
   popularity?: number;

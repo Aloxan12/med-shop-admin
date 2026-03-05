@@ -12,9 +12,10 @@ type HTMLInputProps = Omit<
 >;
 
 interface AppInputProps extends HTMLInputProps {
-  value?: string;
+  value?: string | File | null;
   label?: string;
-  onChange?: (value: string) => void;
+  // допускаем любой тип значения, чтобы и строки, и File были валидны
+  onChange?: (value: any) => void;
   mask?: InputMaskType;
   fullWidth?: boolean;
   error?: string;
@@ -36,6 +37,11 @@ export const AppInput = ({
   const [showPassword, setShowPassword] = useState(false);
   const toggleShow = () => setShowPassword((prev) => !prev);
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (type === "file") {
+      const file = e.target.files?.[0] ?? null;
+      onChange?.(file);
+      return;
+    }
     if (type === "date") {
       if (e.target.value.length > 10) {
         return;
@@ -60,7 +66,7 @@ export const AppInput = ({
       <div className={cls.inputBlock}>
         <input
           readOnly={readOnly}
-          value={value || ""}
+          {...(type === "file" ? {} : { value: value || "" })}
           type={actualType}
           placeholder={placeholder}
           onFocus={readOnly ? (e) => e.target.blur() : undefined}

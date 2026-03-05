@@ -25,6 +25,15 @@ export const AppFilterInput = ({ placeholder, searchParam }: PropsType) => {
     // eslint-disable-next-line
     }, [debounceValue]);
 
+  useEffect(() => {
+    const paramValue = searchParams.get(searchParam) || "";
+    // Синхронизируем локальное состояние, если параметр был очищен/изменён извне
+    if (paramValue !== value) {
+      setValue(paramValue);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, searchParam]);
+
   return (
     <AppInput
       placeholder={placeholder}

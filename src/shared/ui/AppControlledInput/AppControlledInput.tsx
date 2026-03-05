@@ -40,7 +40,8 @@ export const ControlledAppInput = ({
             label={label}
             fullWidth={fullWidth}
             placeholder={placeholder}
-            onChange={(val: string) => field.onChange(val)}
+            // поддерживаем как текстовые значения, так и File для input type="file"
+            onChange={(val) => field.onChange(val)}
             error={fieldState?.error?.message || ""}
           />
         </>
