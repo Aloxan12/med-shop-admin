@@ -14,7 +14,6 @@ type HTMLInputProps = Omit<
 interface AppInputProps extends HTMLInputProps {
   value?: string | File | null;
   label?: string;
-  // допускаем любой тип значения, чтобы и строки, и File были валидны
   onChange?: (value: any) => void;
   mask?: InputMaskType;
   fullWidth?: boolean;
