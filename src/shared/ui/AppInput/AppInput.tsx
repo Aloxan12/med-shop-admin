@@ -65,13 +65,15 @@ export const AppInput = ({
       {!!label && <label className={cls.label}>{label}</label>}
       <div className={cls.inputBlock}>
         <input
+          {...otherProps}
           readOnly={readOnly}
-          {...(type === "file" ? {} : { value: value || "" })}
           type={actualType}
           placeholder={placeholder}
-          onFocus={readOnly ? (e) => e.target.blur() : undefined}
+          value={
+            type === "file" ? undefined : typeof value === "string" ? value : ""
+          }
+          onFocus={readOnly ? (e) => e.target.blur() : otherProps.onFocus}
           onChange={onChangeHandler}
-          {...otherProps}
           className={cls.inputBase}
         />
         {type === "password" && (
