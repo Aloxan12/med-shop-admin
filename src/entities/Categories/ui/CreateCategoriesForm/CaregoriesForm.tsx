@@ -5,12 +5,11 @@ import { ControlledAppInput } from "@/shared/ui/AppControlledInput";
 import { AppButton } from "@/shared/ui/AppButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {} from "@/entities/Users/ui/CreateUserForm/shema.ts";
-import { createCategoryShema } from "@/entities/Categories/ui/CreateCategoriesForm/shema.ts";
-import { useCreateCategory } from "@/entities/Categories/api/useCraeteCategory.ts";
+import { createCategoryShema } from "../CreateCategoriesForm/shema.ts";
+import { useCreateCategory } from "../../api/useCraeteCategory.ts";
 import { toast } from "react-hot-toast";
-import { useEditCategory } from "@/entities/Categories/api/useEditCategory.ts";
-import { useCategoryById } from "@/entities/Categories/api/useCategoryById.ts";
+import { useEditCategory } from "../../api/useEditCategory.ts";
+import { useCategoryById } from "../../api/useCategoryById.ts";
 import { useEffect } from "react";
 import { AppLoader } from "@/shared/ui/AppLoader";
 
