@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom";
+import { useRoutes, useSearchParams } from "react-router-dom";
 import React, { useMemo } from "react";
 import type { IRouteObjectExtended } from "./types";
 import { RoutesByRole } from "./Roles";
@@ -14,10 +14,14 @@ const UserRoutes = ({ routesByUserRole }: IUserRoutes) => {
 
 export const MainLayoutRoutes = () => {
   const currentRole = ""; // useAppSelector(getUserRole);
+  const [searchParams] = useSearchParams();
+
+  const chatId = searchParams.get("chat_id");
+  const chatIdQuery = chatId ? `?chat_id=${chatId}` : "";
 
   const routesByUserRole = useMemo(() => {
-    return RoutesByRole({ roles: currentRole as string });
-  }, [currentRole]);
+    return RoutesByRole({ roles: currentRole as string, chatIdQuery });
+  }, [currentRole, chatIdQuery]);
 
   if (routesByUserRole.length === 0) {
     return <div>Маршруты не найдены</div>;
