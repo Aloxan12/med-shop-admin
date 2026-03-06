@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-hot-toast";
+import styles from "./createProductForm.module.scss";
 
 import { AppModal } from "@/shared/ui/AppModal";
 import { AppFlex } from "@/shared/ui/AppFlex";
@@ -19,7 +20,6 @@ import {
   createProductSchema,
   type CreateProductFormValues,
 } from "@/entities/Products/ui/CreateProductForm/schema.ts";
-import styles from "@/entities/Users/ui/CreateUserForm/style.module.css";
 
 type PropsType = {
   closeModal: () => void;
@@ -51,6 +51,8 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
   const [activeOption, setActiveOption] = useState<ActiveOption | null>(
     productActiveOptions[0],
   );
+
+  const [drag, setDrag] = useState(false);
 
   const setActiveHandler = (option: ActiveOption) => {
     setActiveOption(option);
@@ -110,13 +112,7 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
             mask="float"
             fullWidth
           />
-          <ControlledAppInput
-            control={control}
-            name="photo"
-            placeholder={"Добавьте фото"}
-            type="file"
-            fullWidth
-          />
+
           <ControlledAppInput
             control={control}
             name="stock"
@@ -144,6 +140,29 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
             fullWidth
             error={errors.isActive?.message}
           />
+          <div className={styles.uploadWrapper}>
+            <label className={styles.dropZone}>
+              <input type="file" className={styles.input} />
+              <div className={styles.uploadContent}>
+                <div className={styles.uploadIcon}>↓</div>
+
+                <p className={styles.uploadMainText}>
+                  Перетащите фото товара в эту область или{" "}
+                  <span className={styles.uploadLinkText}>
+                    загрузите с компьютера
+                  </span>
+                </p>
+
+                <p className={styles.uploadHint}>
+                  Минимальный размер: 840 × 472 px
+                </p>
+                <p className={styles.uploadHint}>
+                  Максимальный вес файла: 1 МБ
+                </p>
+                <p className={styles.uploadHint}>PNG, JPG, HEIF и WEBP файлы</p>
+              </div>
+            </label>
+          </div>
         </AppFlex>
         <AppButton type={"submit"} text={"создать"} disabled={isPending} />
       </form>
