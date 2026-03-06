@@ -31,6 +31,7 @@ export const CategoriesTable = () => {
   };
   const shouldHideTable =
     !isLoading && categoriesList?.results?.length === 0 && hasEmptySearchParam;
+  // ывфа
 
   return (
     <>
