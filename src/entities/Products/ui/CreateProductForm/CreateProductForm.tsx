@@ -52,7 +52,7 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
     productActiveOptions[0],
   );
 
-  const [drag, setDrag] = useState(false);
+  // const [drag, setDrag] = useState(false);
 
   const setActiveHandler = (option: ActiveOption) => {
     setActiveOption(option);
