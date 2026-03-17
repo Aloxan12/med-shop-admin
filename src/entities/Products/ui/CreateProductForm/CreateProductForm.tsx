@@ -20,6 +20,7 @@ import {
   createProductSchema,
   type CreateProductFormValues,
 } from "@/entities/Products/ui/CreateProductForm/schema.ts";
+import { AppDnd } from "@/shared/ui/AppDnd";
 
 type PropsType = {
   closeModal: () => void;
@@ -52,8 +53,6 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
     productActiveOptions[0],
   );
 
-  // const [drag, setDrag] = useState(false);
-
   const setActiveHandler = (option: ActiveOption) => {
     setActiveOption(option);
     setValue("isActive", option.value);
@@ -77,12 +76,15 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
         reset();
         closeModal();
       },
+      onError: (error) => {
+        console.error("createProduct mutate error:", error);
+      },
     });
   };
 
   return (
     <AppModal title={modalTitle} onClose={closeModal}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit, () => {})}>
         <AppFlex
           direction="column"
           align="start"
@@ -112,7 +114,6 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
             mask="float"
             fullWidth
           />
-
           <ControlledAppInput
             control={control}
             name="stock"
@@ -129,7 +130,6 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
             mask="integer"
             fullWidth
           />
-
           <AppDropdown
             placeholder={"Выберите статус"}
             propsName={"label"}
@@ -140,29 +140,14 @@ export const CreateProductForm = ({ closeModal, modalTitle }: PropsType) => {
             fullWidth
             error={errors.isActive?.message}
           />
-          <div className={styles.uploadWrapper}>
-            <label className={styles.dropZone}>
-              <input type="file" className={styles.input} />
-              <div className={styles.uploadContent}>
-                <div className={styles.uploadIcon}>↓</div>
-
-                <p className={styles.uploadMainText}>
-                  Перетащите фото товара в эту область или{" "}
-                  <span className={styles.uploadLinkText}>
-                    загрузите с компьютера
-                  </span>
-                </p>
-
-                <p className={styles.uploadHint}>
-                  Минимальный размер: 840 × 472 px
-                </p>
-                <p className={styles.uploadHint}>
-                  Максимальный вес файла: 1 МБ
-                </p>
-                <p className={styles.uploadHint}>PNG, JPG, HEIF и WEBP файлы</p>
-              </div>
-            </label>
-          </div>
+          <AppDnd
+            onFileSelect={(file) => {
+              setValue("photo", file, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
+            }}
+          />
         </AppFlex>
         <AppButton type={"submit"} text={"создать"} disabled={isPending} />
       </form>
