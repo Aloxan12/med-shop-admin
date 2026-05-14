@@ -7,12 +7,12 @@
 tr th{
   padding: 5px 15px;
   text-align: left;
-  border: 1px solid black;
+  border: 1px solid var(--border-primary);
 }
 
 tr td{
   padding: 5px 15px;
   text-align: left;
   vertical-align: top;
-  border: 1px solid black;
+  border: 1px solid var(--border-primary);
 }
